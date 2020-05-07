@@ -8,7 +8,7 @@ create-missing = false
 [preprocess.links]
 
 [output.html]
-git-repository-url = "https://github.com/rust-lang/async-book"
+git-repository-url = "https://github.com/namsoocho/async-book"
 
 [output.linkcheck]
 follow-web-links = true
