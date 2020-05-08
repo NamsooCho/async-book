@@ -5,7 +5,7 @@
   - [비동기 Rust의 상황](01_getting_started/03_state_of_async_rust.md)
   - [`async`/`.await` 입문](01_getting_started/04_async_await_primer.md)
   - [응용: HTTP 서버](01_getting_started/05_http_server_example.md)
-- [Under the Hood: Executing `Future`s and Tasks](02_execution/01_chapter.md)
+- [내부의 작동: `Future`와 Task의 실행](02_execution/01_chapter.md)
   - [The `Future` Trait](02_execution/02_future.md)
   - [Task Wakeups with `Waker`](02_execution/03_wakeups.md)
   - [Applied: Build an Executor](02_execution/04_executor.md)

@@ -1,13 +1,12 @@
-# Under the Hood: Executing `Future`s and Tasks
+# 내부의 작동: `Future`와 Task의 실행
 
-In this section, we'll cover the underlying structure of how `Future`s and
-asynchronous tasks are scheduled. If you're only interested in learning
-how to write higher-level code that uses existing `Future` types and aren't
-interested in the details of how `Future` types work, you can skip ahead to
-the `async`/`await` chapter. However, several of the topics discussed in this
-chapter are useful for understanding how `async`/`await` code works,
-understanding the runtime and performance properties of `async`/`await` code,
-and building new asynchronous primitives. If you decide to skip this section
-now, you may want to bookmark it to revisit in the future.
+이 섹션에서는 `Future`와
+비동기 작업이 어떻게 스케쥴링 되는지 그 하부 구조에 대해 다룹니다.
+기존의 `Future` type을 사용하는 상위 레벨 코드를 작성하는 방법의 학습에만 관심이 있다면
+`Future` type의 작동 방식에 대한 자세한 내용은 건너 뛰고 `async`/`await` 장으로 갈 수 있습니다.
+그러나 여기에서 논의 된 몇 가지 주제는 `async`/`await` 코드의 작동 방식을 이해하는 데 유용합니다.
+`async`/`await` 코드의 런타임 및 성능 속성 이해와
+새로운 비동기 프리미티브 구축에도 또한 유용합니다. 이 섹션을 건너 뛰기로 결정한 경우
+이제 나중에 다시 방문하기 위해 북마크를 지정할 수 있습니다.
 
-Now, with that out of the way, let's talk about the `Future` trait.
+이제 다른 것 보다 `Future` trait에 대해 이야기합시다.
