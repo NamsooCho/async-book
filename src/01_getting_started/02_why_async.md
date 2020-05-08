@@ -1,45 +1,39 @@
-# Why Async?
+# 왜 비동기인가?
 
-We all love how Rust allows us to write fast, safe software. But why write
-asynchronous code?
+우리 모두 Rust가 빠르고 안전한 소프트웨어를 작성하는 방법을 좋아합니다. 하지만 비동기 코드를 왜 쓰지?
 
-Asynchronous code allows us to run multiple tasks concurrently on the same OS
-thread. In a typical threaded application, if you wanted to download two
-different webpages at the same time, you would spread the work across two
-different threads, like this:
+비동기 코드를 사용하면 동일한 OS 스레드에서 여러 작업을 동시에 실행할 수 있습니다.
+일반적인 스레드 응용 프로그램에서 두 개의 웹 페이지를 동시에 다운로드하려는 경우
+당신은 작업을 아래의 코드처럼 두 개의 스레드에 분산시켜야 합니다 :
 
 ```rust,ignore
 {{#include ../../examples/01_02_why_async/src/lib.rs:get_two_sites}}
 ```
 
-This works fine for many applications-- after all, threads were designed
-to do just this: run multiple different tasks at once. However, they also
-come with some limitations. There's a lot of overhead involved in the
-process of switching between different threads and sharing data between
-threads. Even a thread which just sits and does nothing uses up valuable
-system resources. These are the costs that asynchronous code is designed
-to eliminate. We can rewrite the function above using Rust's
-`async`/`.await` notation, which will allow us to run multiple tasks at
-once without creating multiple threads:
+이것은 많은 응용 프로그램에서 잘 작동합니다. 결국 단지 다음과 같은 목적을 가지고 스레드가 설계되었습니다 : `한 번에 여러 다른 작업을 실행하고 싶다.`
+그러나 그들은 또한 몇 가지 제한이 있습니다.
+서로 다른 스레드간에 전환하고 서로간에 데이터를 공유하는 과정에서
+많은 오버 헤드가 발생합니다. 그냥 앉아서 아무것도하지 않는 스레드 조차도 귀중한 시스템 자원을 소모합니다.
+이것은 비동기 코드가 설계되는 이유 입니다.
+Rust의 `async`/`.await`표기법을 사용하여 위의 함수를 다시 작성할 수 있습니다.
+이렇게 함으로써 여러 스레드를 만들지 않고 한 번에 여러 작업을 실행할 수 있습니다 :
 
 ```rust,ignore
 {{#include ../../examples/01_02_why_async/src/lib.rs:get_two_sites_async}}
 ```
 
-Overall, asynchronous applications have the potential to be much faster and
-use fewer resources than a corresponding threaded implementation. However,
-there is a cost. Threads are natively supported by the operating system,
-and using them doesn't require any special programming model-- any function
-can create a thread, and calling a function that uses threads is usually
-just as easy as calling any normal function. However, asynchronous functions
-require special support from the language or libraries.
-In Rust, `async fn` creates an asynchronous function which returns a `Future`.
-To execute the body of the function, the returned `Future` must be run to
-completion.
+전체적으로 비동기 애플리케이션은 훨씬 더 빠르며
+동일한 기능의 스레드 구현보다 적은 리소스를 사용합니다. 하지만,
+비용이 있습니다. 스레드는 운영 체제에서 기본적으로 지원합니다.
+그것들을 사용하기 위해서는 특별한 프로그래밍 모델이 필요하지 않습니다.
+스레드를 만들 수 있으며 스레드를 사용하는 함수를 호출하는 것은 일반적으로
+일반 함수를 호출하는 것만큼 쉽습니다. 그러나 비동기 함수는
+언어 또는 라이브러리의 특별한 지원이 필요합니다.
+Rust에서 `async fn`은 `Future`를 반환하는 비동기 함수를 만듭니다.
+함수 본문을 실행하려면 반환 된 `Future`를 실행해서 동작을 완성해야 합니다.
 
-It's important to remember that traditional threaded applications can be quite
-effective, and that Rust's small memory footprint and predictability mean that
-you can get far without ever using `async`. The increased complexity of the
-asynchronous programming model isn't always worth it, and it's important to
-consider whether your application would be better served by using a simpler
-threaded model.
+기존의 스레드 응용 프로그램 방식은 상당히 효과적일 수 있음을 기억해야합니다.
+그리고 Rust의 작은 메모리 공간과 예측 가능성은
+`비동기`를 사용하지 않고도 멀리 갈 수 있습니다.
+비동기 프로그래밍 모델의 복잡성의 증가는 항상 가치가 있는 것은 아니며
+더 간단한 스레드 모델 방법으로 응용 프로그램을 더 잘 제공 할 수 있는지 고려하십시오.

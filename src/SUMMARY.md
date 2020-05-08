@@ -1,7 +1,7 @@
 # Table of Contents
 
 - [시작하면서](01_getting_started/01_chapter.md)
-  - [Why Async?](01_getting_started/02_why_async.md)
+  - [왜 비동기인가?](01_getting_started/02_why_async.md)
   - [The State of Asynchronous Rust](01_getting_started/03_state_of_async_rust.md)
   - [`async`/`.await` Primer](01_getting_started/04_async_await_primer.md)
   - [Applied: HTTP Server](01_getting_started/05_http_server_example.md)
