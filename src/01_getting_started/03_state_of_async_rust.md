@@ -1,24 +1,18 @@
-# The State of Asynchronous Rust
+# 비동기 Rust의 상황
 
-The asynchronous Rust ecosystem has undergone a lot of evolution over time,
-so it can be hard to know what tools to use, what libraries to invest in,
-or what documentation to read. However, the `Future` trait inside the standard
-library and the `async`/`await` language feature has recently been stabilized.
-The ecosystem as a whole is therefore in the midst of migrating
-to the newly-stabilized API, after which point churn will be significantly
-reduced.
+비동기식 Rust 생태계는 시간이 지남에 따라 많은 진화를 겪었습니다.
+따라서 사용할 도구, 투자 할 라이브러리,
+또는 읽을 문서를 알아내기란 어려운 일 입니다. 그러나 Rust 표준 라이브러리 내에서 `Future` trait
+와 `async`/`await` 언어 기능이 최근에 안정화 되었습니다.
+전체 생태계는 따라서 새롭게 안정화 된 API를 향한 이주의 한가운데에 있습니다.
 
-At the moment, however, the ecosystem is still undergoing rapid development
-and the asynchronous Rust experience is unpolished. Most libraries still
-use the 0.1 definitions of the `futures` crate, meaning that to interoperate
-developers frequently need to reach for the `compat` functionality from the
-0.3 `futures` crate. The `async`/`await` language feature is still new.
-Important extensions like `async fn` syntax in trait methods are still
-unimplemented, and the current compiler error messages can be difficult to
-parse.
+그러나 현재 생태계는 여전히 급속한 발전을 겪고 있고
+비동기식 Rust 경험은 충분히 연마되지 않았습니다. 여전히 대부분의 라이브러리는
+`Future` crate의 0.1 버젼를 사용합니다.
+개발자는 종종 버젼 0.3 `Future` crate의 `compat` 기능에 도달해야 합니다.
+`async` /`await` 언어 기능은 여전히 ​​새로운 기능입니다.
+특성 메소드의 `async fn` 구문과 같은 중요한 확장은 여전히
+구현되지 않았으며 현재의 컴파일러 오류 메시지는 이해하기 어려울 수 있습니다.
 
-That said, Rust is well on its way to having some of the most performant
-and ergonomic support for asynchronous programming around, and if you're not
-afraid of doing some spelunking, enjoy your dive into the world of
-asynchronous programming in Rust!
-
+러스트는 가장 뛰어난 성능과 비동기 프로그래밍을 위한 인간 친화적 지원을 발휘할 수 있는 길을 가고 있습니다.
+삐걱 거리는 소리가 두렵지 않다면, Rust 비동기 프로그래밍 세계로의 다이빙을 즐기십시오!
