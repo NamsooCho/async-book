@@ -1,13 +1,34 @@
-# The `Future` Trait
+# `Future` Trait
 
-The `Future` trait is at the center of asynchronous programming in Rust.
-A `Future` is an asynchronous computation that can produce a value
-(although that value may be empty, e.g. `()`). A *simplified* version of
-the future trait might look something like this:
+`Future` trait은 Rust의 비동기 프로그래밍의 중심에 있습니다.
+`Future`는 값을 생성 할 수있는 비동기 연산입니다.
+(이 값은 비어있을 수 있습니다. 예 :`()`). *simplified* 버전의
+future trait은 다음과 같습니다.
 
 ```rust
 {{#include ../../examples/02_02_future_trait/src/lib.rs:simple_future}}
 ```
+
+'poll'함수를 호출하여 선물을 진행할 수 있습니다.
+가능한 한 완성을 향한 미래. 미래가 완료되면
+`Poll :: Ready (result)`를 반환합니다. 미래가 아직 완료되지 않으면
+`Poll :: Pending`을 반환하고`wake ()`함수가 호출되도록 정렬
+'미래'가 더 발전 할 준비가되었을 때. `wake ()`가 호출되면
+'미래'를 실행하는 집행자는 '미래'를 다시 호출하여 '미래'가
+더 많은 진전을 이루십시오.
+
+`wake ()`가 없으면 실행자는 특정 시점을 알 방법이 없습니다.
+미래는 진전을 이룰 수 있으며 항상 모든 것을 폴링해야합니다.
+미래. `wake ()`를 사용하면, 집행자는 어떤 선물이 준비되어 있는지 정확히 알 수 있습니다
+'폴링'됩니다.
+
+예를 들어, 소켓에서 읽을 수있는 경우를 고려하십시오.
+사용 가능한 데이터가 없을 수도 있습니다. 데이터가 있으면 읽을 수 있습니다
+`Poll :: Ready (data)`를 반환하지만 준비된 데이터가 없으면 미래는
+차단되었으며 더 이상 진행할 수 없습니다. 사용 가능한 데이터가 없으면
+소켓에서 데이터가 준비되면 호출 될 'wake'를 등록해야합니다.
+그것은 우리의 미래가 진보 할 준비가되었다고 집행자에게 알려줄 것입니다.
+간단한 'SocketRead'미래는 다음과 같습니다.
 
 Futures can be advanced by calling the `poll` function, which will drive the
 future as far towards completion as possible. If the future completes, it
