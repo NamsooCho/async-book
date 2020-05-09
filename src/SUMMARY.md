@@ -9,7 +9,7 @@
   - [`Future` Trait](02_execution/02_future.md)
   - [`Waker`으로 타스크 깨우기](02_execution/03_wakeups.md)
   - [응용: Executor 만들기](02_execution/04_executor.md)
-  - [Executors and System IO](02_execution/05_io.md)
+  - [Executor와 시스템 IO](02_execution/05_io.md)
 - [`async`/`await`](03_async_await/01_chapter.md)
 - [Pinning](04_pinning/01_chapter.md)
 - [Streams](05_streams/01_chapter.md)
