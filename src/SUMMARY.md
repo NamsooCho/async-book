@@ -7,7 +7,7 @@
   - [응용: HTTP 서버](01_getting_started/05_http_server_example.md)
 - [내부의 작동: `Future`와 Task의 실행](02_execution/01_chapter.md)
   - [`Future` Trait](02_execution/02_future.md)
-  - [Task Wakeups with `Waker`](02_execution/03_wakeups.md)
+  - [`Waker`으로 타스크 깨우기](02_execution/03_wakeups.md)
   - [Applied: Build an Executor](02_execution/04_executor.md)
   - [Executors and System IO](02_execution/05_io.md)
 - [`async`/`await`](03_async_await/01_chapter.md)
