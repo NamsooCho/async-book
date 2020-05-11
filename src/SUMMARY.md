@@ -13,7 +13,7 @@
 - [`async`/`await`](03_async_await/01_chapter.md)
 - [Pinning](04_pinning/01_chapter.md)
 - [Streams](05_streams/01_chapter.md)
-  - [Iteration and Concurrency](05_streams/02_iteration_and_concurrency.md)
+  - [반복자와 동시성](05_streams/02_iteration_and_concurrency.md)
 - [Executing Multiple Futures at a Time](06_multiple_futures/01_chapter.md)
   - [`join!`](06_multiple_futures/02_join.md)
   - [`select!`](06_multiple_futures/03_select.md)
