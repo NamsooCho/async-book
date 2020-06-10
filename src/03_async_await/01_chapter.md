@@ -21,7 +21,7 @@ block하지 않고 현재 스레드의 제어를 내어 놓아서 작업이 완�
 더 많은 진전이 가능할 때 해당 `Future`가 executor에 의해 선택됩니다.
 Executor에 의해 실행을 재개하여 `.await`가 완결 되도록 합니다.
 
-## `async` 샘영주기
+## `async` 생명주기
 
 전통적인 함수와 달리, reference 또는
 non-static인 인수를 취하는 `async fn`는 생명주기가 인수의 생명주기에 묶여 있는 `Future`를 반환합니다 :
