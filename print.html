@@ -1,0 +1,1936 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Asynchronous Programming in Rust</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="01_getting_started/01_chapter.html"><strong aria-hidden="true">1.</strong> 시작하면서</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="01_getting_started/02_why_async.html"><strong aria-hidden="true">1.1.</strong> 왜 비동기인가?</a></li><li class="chapter-item expanded "><a href="01_getting_started/03_state_of_async_rust.html"><strong aria-hidden="true">1.2.</strong> 비동기 Rust의 상황</a></li><li class="chapter-item expanded "><a href="01_getting_started/04_async_await_primer.html"><strong aria-hidden="true">1.3.</strong> async/.await 입문</a></li><li class="chapter-item expanded "><a href="01_getting_started/05_http_server_example.html"><strong aria-hidden="true">1.4.</strong> 응용: HTTP 서버</a></li></ol></li><li class="chapter-item expanded "><a href="02_execution/01_chapter.html"><strong aria-hidden="true">2.</strong> 내부의 작동: Future와 Task의 실행</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="02_execution/02_future.html"><strong aria-hidden="true">2.1.</strong> Future Trait</a></li><li class="chapter-item expanded "><a href="02_execution/03_wakeups.html"><strong aria-hidden="true">2.2.</strong> Waker으로 타스크 깨우기</a></li><li class="chapter-item expanded "><a href="02_execution/04_executor.html"><strong aria-hidden="true">2.3.</strong> 응용: Executor 만들기</a></li><li class="chapter-item expanded "><a href="02_execution/05_io.html"><strong aria-hidden="true">2.4.</strong> Executor와 시스템 IO</a></li></ol></li><li class="chapter-item expanded "><a href="03_async_await/01_chapter.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="04_pinning/01_chapter.html"><strong aria-hidden="true">4.</strong> Pinning</a></li><li class="chapter-item expanded "><a href="05_streams/01_chapter.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="05_streams/02_iteration_and_concurrency.html"><strong aria-hidden="true">5.1.</strong> 반복자와 동시성</a></li></ol></li><li class="chapter-item expanded "><a href="06_multiple_futures/01_chapter.html"><strong aria-hidden="true">6.</strong> 동시에 다양한 Future들을 실행하는 것</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="06_multiple_futures/02_join.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="06_multiple_futures/03_select.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">6.3.</strong> TODO: Spawning</a></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</a></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</a></li></ol></li><li class="chapter-item expanded "><a href="07_workarounds/01_chapter.html"><strong aria-hidden="true">7.</strong> 알고 사랑해야 할 방법들</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="07_workarounds/02_return_type.html"><strong aria-hidden="true">7.1.</strong> 타입 에러의 반환</a></li><li class="chapter-item expanded "><a href="07_workarounds/03_err_in_async_blocks.html"><strong aria-hidden="true">7.2.</strong> ? in async 블록</a></li><li class="chapter-item expanded "><a href="07_workarounds/04_send_approximation.html"><strong aria-hidden="true">7.3.</strong> Send 추정</a></li><li class="chapter-item expanded "><a href="07_workarounds/05_recursion.html"><strong aria-hidden="true">7.4.</strong> 재귀</a></li><li class="chapter-item expanded "><a href="07_workarounds/06_async_in_traits.html"><strong aria-hidden="true">7.5.</strong> async in Traits</a></li></ol></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">8.</strong> TODO: I/O</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">8.1.</strong> TODO: AsyncRead and AsyncWrite</a></li></ol></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">9.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">9.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</a></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">9.2.</strong> TODO: Managing Shared State</a></li></ol></li><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">10.</strong> TODO: The Ecosystem: Tokio and More</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="404.html"><strong aria-hidden="true">10.1.</strong> TODO: Lots, lots more?...</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Asynchronous Programming in Rust</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/namsoocho/async-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#시작하면서" id="시작하면서">시작하면서...</a></h1>
+<p>Rust의 비동기 프로그래밍에 오신 것을 환영합니다! 비동기 Rust 코드를 작성하기 시작하려는 경우, 
+당신은 올바른 장소에 왔습니다. 당신이
+웹 서버, 데이터베이스 또는 운영 체제 등 무엇을 만들려고 하는 경우 이 책은
+Rust의 비동기 프로그래밍 도구를 사용하여 하드웨어를 최대한 활용하는 방법을 보여줄 것입니다.</p>
+<h2><a class="header" href="#이-책이-다루는-범위" id="이-책이-다루는-범위">이 책이 다루는 범위</a></h2>
+<p>이 책은 Rust의 비동기 사용에 대한 포괄적인 최신 안내서를 목표로합니다.
+언어 기능 및 라이브러리에 대한 설명은 초보자와 고급 경험자 모두에게 적합한 내용이 될 것입니다.</p>
+<ul>
+<li>
+<p>처음 부분에서는 일반적으로 비동기 프로그래밍에 대해 소개합니다.
+그리고 Rust의 특별한 특성에 대해 다룹니다.</p>
+</li>
+<li>
+<p>중간 장에서는 사용할 수있는 주요 유틸리티 및 제어 흐름 도구에 대해 설명합니다.
+비동기 코드 작성 및 라이브러리 구조화를 위한 모범 사례를 설명하며
+성능 및 재사용성을 극대화하는 응용 프로그램의 작성에 대해 논합니다.</p>
+</li>
+<li>
+<p>이 책의 마지막 부분은 더 넓은 비동기 생태계를 다루고 있으며
+일반적인 작업을 수행하는 방법에 대한 많은 예를 다룹니다.</p>
+</li>
+</ul>
+<p>이제, 비동기 Rust 프로그래밍의 흥미 진진한 세계를 탐험 해 봅시다.</p>
+<h1><a class="header" href="#왜-비동기인가" id="왜-비동기인가">왜 비동기인가?</a></h1>
+<p>우리 모두 Rust가 빠르고 안전한 소프트웨어를 작성하는 방법을 좋아합니다. 하지만 비동기 코드를 왜 쓰지?</p>
+<p>비동기 코드를 사용하면 동일한 OS 스레드에서 여러 작업을 동시에 실행할 수 있습니다.
+일반적인 스레드 응용 프로그램에서 두 개의 웹 페이지를 동시에 다운로드하려는 경우
+당신은 작업을 아래의 코드처럼 두 개의 스레드에 분산시켜야 합니다 :</p>
+<pre><code class="language-rust ignore">fn get_two_sites() {
+    // Spawn two threads to do work.
+    let thread_one = thread::spawn(|| download(&quot;https://www.foo.com&quot;));
+    let thread_two = thread::spawn(|| download(&quot;https://www.bar.com&quot;));
+
+    // Wait for both threads to complete.
+    thread_one.join().expect(&quot;thread one panicked&quot;);
+    thread_two.join().expect(&quot;thread two panicked&quot;);
+}
+</code></pre>
+<p>이것은 많은 응용 프로그램에서 잘 작동합니다. 결국 단지 다음과 같은 목적을 가지고 스레드가 설계되었습니다 : <code>한 번에 여러 다른 작업을 실행하고 싶다.</code>
+그러나 그들은 또한 몇 가지 제한이 있습니다.
+서로 다른 스레드간에 전환하고 서로간에 데이터를 공유하는 과정에서
+많은 오버 헤드가 발생합니다. 그냥 앉아서 아무것도하지 않는 스레드 조차도 귀중한 시스템 자원을 소모합니다.
+이것은 비동기 코드가 설계되는 이유 입니다.
+Rust의 <code>async</code>/<code>.await</code>표기법을 사용하여 위의 함수를 다시 작성할 수 있습니다.
+이렇게 함으로써 여러 스레드를 만들지 않고 한 번에 여러 작업을 실행할 수 있습니다 :</p>
+<pre><code class="language-rust ignore">async fn get_two_sites_async() {
+    // Create two different &quot;futures&quot; which, when run to completion,
+    // will asynchronously download the webpages.
+    let future_one = download_async(&quot;https://www.foo.com&quot;);
+    let future_two = download_async(&quot;https://www.bar.com&quot;);
+
+    // Run both futures to completion at the same time.
+    join!(future_one, future_two);
+}
+</code></pre>
+<p>전체적으로 비동기 애플리케이션은 훨씬 더 빠르며
+동일한 기능의 스레드 구현보다 적은 리소스를 사용합니다. 하지만,
+비용이 있습니다. 스레드는 운영 체제에서 기본적으로 지원합니다.
+그것들을 사용하기 위해서는 특별한 프로그래밍 모델이 필요하지 않습니다.
+스레드를 만들 수 있으며 스레드를 사용하는 함수를 호출하는 것은 일반적으로
+일반 함수를 호출하는 것만큼 쉽습니다. 그러나 비동기 함수는
+언어 또는 라이브러리의 특별한 지원이 필요합니다.
+Rust에서 <code>async fn</code>은 <code>Future</code>를 반환하는 비동기 함수를 만듭니다.
+함수 본문을 실행하려면 반환 된 <code>Future</code>를 실행해서 동작을 완성해야 합니다.</p>
+<p>기존의 스레드 응용 프로그램 방식은 상당히 효과적일 수 있음을 기억해야합니다.
+그리고 Rust의 작은 메모리 공간과 예측 가능성은
+<code>비동기</code>를 사용하지 않고도 멀리 갈 수 있습니다.
+비동기 프로그래밍 모델의 복잡성의 증가는 항상 가치가 있는 것은 아니며
+더 간단한 스레드 모델 방법으로 응용 프로그램을 더 잘 제공 할 수 있는지 고려하십시오.</p>
+<h1><a class="header" href="#비동기-rust의-상황" id="비동기-rust의-상황">비동기 Rust의 상황</a></h1>
+<p>비동기식 Rust 생태계는 시간이 지남에 따라 많은 진화를 겪었습니다.
+따라서 사용할 도구, 투자 할 라이브러리,
+또는 읽을 문서를 알아내기란 어려운 일 입니다. 그러나 Rust 표준 라이브러리 내에서 <code>Future</code> trait
+와 <code>async</code>/<code>await</code> 언어 기능이 최근에 안정화 되었습니다.
+전체 생태계는 따라서 새롭게 안정화 된 API를 향한 이주의 한가운데에 있습니다.</p>
+<p>그러나 현재 생태계는 여전히 급속한 발전을 겪고 있고
+비동기식 Rust 경험은 충분히 연마되지 않았습니다. 여전히 대부분의 라이브러리는
+<code>Future</code> crate의 0.1 버젼를 사용합니다.
+개발자는 종종 버젼 0.3 <code>Future</code> crate의 <code>compat</code> 기능에 도달해야 합니다.
+<code>async</code> /<code>await</code> 언어 기능은 여전히 ​​새로운 기능입니다.
+특성 메소드의 <code>async fn</code> 구문과 같은 중요한 확장은 여전히
+구현되지 않았으며 현재의 컴파일러 오류 메시지는 이해하기 어려울 수 있습니다.</p>
+<p>러스트는 가장 뛰어난 성능과 비동기 프로그래밍을 위한 인간 친화적 지원을 발휘할 수 있는 길을 가고 있습니다.
+삐걱 거리는 소리가 두렵지 않다면, Rust 비동기 프로그래밍 세계로의 다이빙을 즐기십시오!</p>
+<h1><a class="header" href="#asyncawait-입문" id="asyncawait-입문"><code>async</code>/<code>.await</code> 입문</a></h1>
+<p><code>async</code>/<code>.await</code>는 비동기 함수를 동기 코드처럼 보이도록 해주기 위한 Rust의 내장 툴입니다.
+<code>async</code>는 코드 블록을
+<code>Future</code>라는 trait을 구현하는 상태 머신으로 변환해 줍니다.
+동기 함수에서 blocking함수의 호출은 전체 스레드를 blocking하는 반면에
+blocking된 <code>Future</code>는 스레드의 제어를 내어 놓아 다른 타스크의 실행을 허용합니다.
+이는 다른 <code>Future</code>의 실행을 허용합니다.</p>
+<p>비동기 함수를 만들려면 <code>async fn</code> 구문을 사용할 수 있습니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>async fn do_something() { /* ... */ }
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>async fn</code>에 의해 반환되는 값은 <code>Future</code>입니다. 무슨 일이 일어나려면
+<code>Future</code>는 executor 프로그램에서 실행 되어야 합니다.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">// `block_on` blocks the current thread until the provided future has run to
+// completion. Other executors provide more complex behavior, like scheduling
+// multiple futures onto the same thread.
+use futures::executor::block_on;
+
+async fn hello_world() {
+    println!(&quot;hello, world!&quot;);
+}
+
+fn main() {
+    let future = hello_world(); // Nothing is printed
+    block_on(future); // `future` is run and &quot;hello, world!&quot; is printed
+}
+</code></pre></pre>
+<p><code>async fn</code> 안에서 <code>.await</code>를 사용하여
+<code>Future</code> trait을 구현하는 다른 type (예 :
+또 다른<code>async fn</code>의 반환 값)의 실행이 완성되기를 기다릴 수 있습니다.
+<code>block_on</code>과 달리<code>.await</code>는 현재의 스레드를 block하지 않습니다.
+대신 Future가 완료 될 때 까지 비동기 적으로 기다립니다.
+이는 만약 현재의 future가 진행될 수 없는 경우 다른 타스크가 실행되도록 해줍니다.</p>
+<p>예를 들어, 우리가 3개의 <code>async fn</code>: <code>learn_song</code>, <code>sing_song</code>,
+그리고 <code>dance</code> 를 가지고 있다고 해봅시다.</p>
+<pre><code class="language-rust ignore">async fn learn_song() -&gt; Song { /* ... */ }
+async fn sing_song(song: Song) { /* ... */ }
+async fn dance() { /* ... */ }
+</code></pre>
+<p>배우고, 노래하고, 춤을 추는 한 가지 방법은 각각을 개별적으로 block하는 것입니다:</p>
+<pre><code class="language-rust ignore">fn main() {
+    let song = block_on(learn_song());
+    block_on(sing_song(song));
+    block_on(dance());
+}
+</code></pre>
+<p>그러나 우리는 이런 식으로 최고의 성능을 제공하지 않습니다.
+한 번에 한 가지 작업만 수행하고 있습니다! 분명히 우리는 노래를 부르기 전에 노래를 배워야 합니다.
+하지만 우리는 노래를 배우거나 부르는 동시에 춤을 출 수 있습니다.
+이를 위해 동시에 실행할 수 있는 두 개의 <code>async fn</code>을 만들 수 있습니다:</p>
+<pre><code class="language-rust ignore">async fn learn_and_sing() {
+    // Wait until the song has been learned before singing it.
+    // We use `.await` here rather than `block_on` to prevent blocking the
+    // thread, which makes it possible to `dance` at the same time.
+    let song = learn_song().await;
+    sing_song(song).await;
+}
+
+async fn async_main() {
+    let f1 = learn_and_sing();
+    let f2 = dance();
+
+    // `join!` is like `.await` but can wait for multiple futures concurrently.
+    // If we're temporarily blocked in the `learn_and_sing` future, the `dance`
+    // future will take over the current thread. If `dance` becomes blocked,
+    // `learn_and_sing` can take back over. If both futures are blocked, then
+    // `async_main` is blocked and will yield to the executor.
+    futures::join!(f1, f2);
+}
+
+fn main() {
+    block_on(async_main());
+}
+</code></pre>
+<p>이 예에서 노래를 부르기 전에 노래를 배우는 것이 필요하지만
+노래 학습과 노래 부르기는 춤과 동시에 일어날 수 있습니다. 우리가 
+<code>learn_and_sing</code>의 <code>learn_song().await</code> 대신 <code>block_on(learn_song())</code>을 사용했다면,
+<code>learn_song</code>이 실행되는 동안 스레드는 다른 작업을 수행 할 수 없습니다.
+이렇게 하면 노래와 동시에 춤을 출 수 없게됩니다.
+<code>learn_song</code> future를 <code>.await</code>~ing 함으로써, 우리는 <code>learn_song</code>이 block 된 경우
+다른 작업이 현재 스레드를 인계받을 수 있도록 할 수 있습니다.
+이를 통해 여러 타스크를 동일한 스레드에서 동시에 운영 할 수 있습니다.
+이제 <code>async</code>/<code>await</code>의 기본 사항을 배웠으므로
+예제를 살펴봅시다.</p>
+<h1><a class="header" href="#응용-간단한-http-서버" id="응용-간단한-http-서버">응용: 간단한 HTTP 서버</a></h1>
+<p><code>async</code>/<code>.await</code> 를 사용하여 에코 서버를 만들어 보겠습니다.</p>
+<p>본 예제를 시작하려면 <code>rustup update stable</code>을 실행하여 Rust stable 1.39 이상을 유지하십시오. 일단 완료하면
+<code>cargo new async-await-echo</code>를 실행하여 새로운 프로젝트를 만들고 여십시오.
+실행의 결과는 async-await-echo 폴더에 만들어 집니다.</p>
+<p><code>Cargo.toml</code> 파일에 몇몇 의존성을 추가해 봅시다 :</p>
+<pre><code class="language-toml">[dependencies]
+# Hyper is an asynchronous HTTP library. We'll use it to power our HTTP
+# server and to make HTTP requests.
+hyper = &quot;0.13.0&quot;
+# To setup some sort of runtime needed by Hyper, we will use the Tokio runtime.
+tokio = { version = &quot;0.2&quot;, features = [&quot;full&quot;] }
+
+# (only for testing)
+failure = &quot;0.1.6&quot;
+reqwest = &quot;0.9.24&quot;
+</code></pre>
+<p>이제 의존성이 해결 되었으므로 이제 코딩을 시작하겠습니다.
+다음의 imports를 추가합니다 :</p>
+<pre><code class="language-rust ignore">use {
+    hyper::{
+        // Following functions are used by Hyper to handle a `Request`
+        // and returning a `Response` in an asynchronous manner by using a Future
+        service::{make_service_fn, service_fn},
+        // Miscellaneous types from Hyper for working with HTTP.
+        Body,
+        Client,
+        Request,
+        Response,
+        Server,
+        Uri,
+    },
+    std::net::SocketAddr,
+};
+</code></pre>
+<p>이제 의존성이 해결 되었으므로 모든 것을 모아서 리퀘스트를 처리하도록 하는 기본 토대를 만드는 작업을 시작하겠습니다 :</p>
+<pre><code class="language-rust ignore">async fn serve_req(_req: Request&lt;Body&gt;) -&gt; Result&lt;Response&lt;Body&gt;, hyper::Error&gt; {
+    // Always return successfully with a response containing a body with
+    // a friendly greeting ;)
+    Ok(Response::new(Body::from(&quot;hello, world!&quot;)))
+}
+
+async fn run_server(addr: SocketAddr) {
+    println!(&quot;Listening on http://{}&quot;, addr);
+
+    // Create a server bound on the provided address
+    let serve_future = Server::bind(&amp;addr)
+        // Serve requests using our `async serve_req` function.
+        // `serve` takes a closure which returns a type implementing the
+        // `Service` trait. `service_fn` returns a value implementing the
+        // `Service` trait, and accepts a closure which goes from request
+        // to a future of the response.
+        .serve(make_service_fn(|_| {
+            async {
+                {
+                    Ok::&lt;_, hyper::Error&gt;(service_fn(serve_req))
+                }
+            }
+        }));
+
+    // Wait for the server to complete serving or exit with an error.
+    // If an error occurred, print it to stderr.
+    if let Err(e) = serve_future.await {
+        eprintln!(&quot;server error: {}&quot;, e);
+    }
+}
+
+#[tokio::main]
+async fn main() {
+  // Set the address to run our socket on.
+  let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+
+  // Call our `run_server` function, which returns a future.
+  // As with every `async fn`, for `run_server` to do anything,
+  // the returned future needs to be run using `await`;
+  run_server(addr).await;
+}
+</code></pre>
+<p>지금 <code>cargo run</code>하면, &quot;Listening on http://127.0.0.1:3000&quot; 이라는 메시지가 터미널에 나타납니다.
+여러분이 선택한 브라우저에서 위 주소를 열면 &quot;hello, world!&quot;가 브라우저에 나타납니다.
+축하합니다! 방금 Rust에서 첫 번째 비동기 웹 서버를 작성했습니다.</p>
+<p>다음과 같은 정보(request URI, HTTP version, headers, and other metadata)가 포함 된 요청을 검사 할 수도 있습니다.
+예를 들어, 다음과 같이 요청의 URI를 인쇄 할 수 있습니다.</p>
+<pre><code class="language-rust ignore">println!(&quot;Got request at {:?}&quot;, req.uri());
+</code></pre>
+<p>우리가 요청을 처리 할 때 비동기적인 것을 아무 것도 아직 하고 있지 않은 것을 눈치 채셨나요?
+-우리는 단지 즉시 응답합니다.
+따라서 우리는 <code>async fn</code>이 제공하는 유연성을 활용하지 않습니다.
+정적 메시지를 반환하는 대신 Hyper의 HTTP 클라이언트를 사용하여 다른 웹 사이트에 사용자의 요청을 프록시 하도록 시도해 봅시다.</p>
+<p>요청하려는 URL을 파싱하여 시작합니다.</p>
+<pre><code class="language-rust ignore">        let url_str = &quot;http://www.rust-lang.org/en-US/&quot;;
+        let url = url_str.parse::&lt;Uri&gt;().expect(&quot;failed to parse URL&quot;);
+</code></pre>
+<p>그런 다음 새로운 <code>hyper::Client</code>를 작성하고 이를 사용하여 <code>GET</code> 요청을 할 수 있습니다.
+이는 응답을 사용자에게 반환합니다 :</p>
+<pre><code class="language-rust ignore">        let res = Client::new().get(url).await?;
+        // Return the result of the request directly to the user
+        println!(&quot;request finished-- returning response&quot;);
+        Ok(res)
+</code></pre>
+<p><code>Client::get</code>은 <code>Future&lt;Output = Result&lt;Response&lt;Body&gt;&gt;&gt;</code>을 구현하는 <code>hyper::client::ResponseFuture</code>를 반환합니다.
+(또는 futures 0.1 버젼에서 <code>Future&lt;Item = Response&lt;Body&gt;, Error = Error&gt;</code>).
+우리가 그 future를 <code>.await</code> 하면 현재 작업 중인 HTTP 요청이 전송됩니다.
+현재의 타스크는 일시 중지되고 큐에 들아가서 대기하다가 응답이 오면 계속 실행 됩니다.</p>
+<p>이제 <code>cargo run</code>을 하고 브라우저에서 <code>http://127.0.0.1:3000/foo</code>를 연다면,
+Rust 홈페이지와 다음 문자열이 터미널에 나타납니다.</p>
+<pre><code>Listening on http://127.0.0.1:3000
+Got request at /foo
+making request to http://www.rust-lang.org/en-US/
+request finished-- returning response
+</code></pre>
+<p>축하합니닥! 여러분은 HTTP 요청을 프록시 했습니다.</p>
+<h1><a class="header" href="#내부의-작동-future와-task의-실행" id="내부의-작동-future와-task의-실행">내부의 작동: <code>Future</code>와 Task의 실행</a></h1>
+<p>이 섹션에서는 <code>Future</code>와
+비동기 작업이 어떻게 스케쥴링 되는지 그 하부 구조에 대해 다룹니다.
+기존의 <code>Future</code> type을 사용하는 상위 레벨 코드를 작성하는 방법의 학습에만 관심이 있다면
+<code>Future</code> type의 작동 방식에 대한 자세한 내용은 건너 뛰고 <code>async</code>/<code>await</code> 장으로 갈 수 있습니다.
+그러나 여기에서 논의 된 몇 가지 주제는 <code>async</code>/<code>await</code> 코드의 작동 방식을 이해하는 데 유용합니다.
+<code>async</code>/<code>await</code> 코드의 런타임 및 성능 속성 이해와
+새로운 비동기 프리미티브 구축에도 또한 유용합니다. 이 섹션을 건너 뛰기로 결정한 경우
+이제 나중에 다시 방문하기 위해 북마크를 지정할 수 있습니다.</p>
+<p>이제 다른 것 보다 <code>Future</code> trait에 대해 이야기합시다.</p>
+<h1><a class="header" href="#future-trait" id="future-trait"><code>Future</code> Trait</a></h1>
+<p><code>Future</code> trait은 Rust의 비동기 프로그래밍의 중심에 있습니다.
+<code>Future</code>는 값을 생성 할 수있는 비동기 연산입니다.
+(이 값은 비어있을 수 있습니다. 예 :<code>()</code>). <em>simplified</em> 버전의
+future trait은 다음과 같습니다.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait SimpleFuture {
+    type Output;
+    fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt;;
+}
+
+enum Poll&lt;T&gt; {
+    Ready(T),
+    Pending,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>poll</code> 함수를 호출하여 <code>Future</code>을 실행할 수 있습니다.
+이러한 호출은 future를 가능한 한 완수를 목표로 합니다. <code>Future</code>가 완료되면
+<code>Poll::Ready(result)</code>를 반환합니다. Future가 아직 완료되지 않았으면
+<code>Poll::Pending</code>을 반환하고 <code>Future</code>가 더 진행 할 준비가 되었을 때<code>wake()</code>함수가 호출되도록 해 주어야 합니다.
+<code>wake()</code>가 호출되면
+<code>Future</code>를 실행하는 executor는 <code>Future</code>를 다시 호출하여 <code>Future</code>가
+중단되었던 지점에서 실행을 계속 하도록 합니다.</p>
+<p><code>wake()</code>가 없으면 executor는 특정 future가 언제 다시 실행 가능한 지를 알 방법이 없으므로,
+항상 모든 future를 polling 해야 합니다.
+<code>wake()</code>를 사용하면, executor는 어떤 future가 실행 가능한지를 polling 해야 하는지 정확히 알 수 있습니다.</p>
+<p>예를 들어, 사용 가능한 데이터가 있을 수도, 없을 수도 있는 소켓을 읽는 경우를 고려하십시오.
+데이터가 있으면 읽을 수 있고 <code>Poll::Ready(data)</code>를 반환하지만
+준비된 데이터가 없으면 future는
+block되며 더 이상 진행할 수 없습니다. 사용 가능한 데이터가 없으면
+소켓에서 데이터가 준비되면 호출 될 <code>wake</code>를 등록해야 합니다.
+그것은 우리의 future가 재실행 할 준비가 되었다고 ezecutor에게 알려줄 것입니다.
+간단한 <code>SocketRead</code> future는 다음과 같습니다.</p>
+<pre><code class="language-rust ignore">pub struct SocketRead&lt;'a&gt; {
+    socket: &amp;'a Socket,
+}
+
+impl SimpleFuture for SocketRead&lt;'_&gt; {
+    type Output = Vec&lt;u8&gt;;
+
+    fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
+        if self.socket.has_data_to_read() {
+            // The socket has data-- read it into a buffer and return it.
+            Poll::Ready(self.socket.read_buf())
+        } else {
+            // The socket does not yet have data.
+            //
+            // Arrange for `wake` to be called once data is available.
+            // When data becomes available, `wake` will be called, and the
+            // user of this `Future` will know to call `poll` again and
+            // receive data.
+            self.socket.set_readable_callback(wake);
+            Poll::Pending
+        }
+    }
+}
+</code></pre>
+<p>이 <code>Future</code> 모델은 중간 할당이 필요없는 여러 개의 비동기 동작을 하는 여러 future를 구성 할 수 있습니다.
+한 번에 여러 개의 futures, 또는 chained futures를 allocation-free
+state machines을 사용하여 실행되는 코드를 구현할 수 있습니다.</p>
+<pre><code class="language-rust ignore">/// A SimpleFuture that runs two other futures to completion concurrently.
+///
+/// Concurrency is achieved via the fact that calls to `poll` each future
+/// may be interleaved, allowing each future to advance itself at its own pace.
+pub struct Join&lt;FutureA, FutureB&gt; {
+    // Each field may contain a future that should be run to completion.
+    // If the future has already completed, the field is set to `None`.
+    // This prevents us from polling a future after it has completed, which
+    // would violate the contract of the `Future` trait.
+    a: Option&lt;FutureA&gt;,
+    b: Option&lt;FutureB&gt;,
+}
+
+impl&lt;FutureA, FutureB&gt; SimpleFuture for Join&lt;FutureA, FutureB&gt;
+where
+    FutureA: SimpleFuture&lt;Output = ()&gt;,
+    FutureB: SimpleFuture&lt;Output = ()&gt;,
+{
+    type Output = ();
+    fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
+        // Attempt to complete future `a`.
+        if let Some(a) = &amp;mut self.a {
+            if let Poll::Ready(()) = a.poll(wake) {
+                self.a.take();
+            }
+        }
+
+        // Attempt to complete future `b`.
+        if let Some(b) = &amp;mut self.b {
+            if let Poll::Ready(()) = b.poll(wake) {
+                self.b.take();
+            }
+        }
+
+        if self.a.is_none() &amp;&amp; self.b.is_none() {
+            // Both futures have completed-- we can return successfully
+            Poll::Ready(())
+        } else {
+            // One or both futures returned `Poll::Pending` and still have
+            // work to do. They will call `wake()` when progress can be made.
+            Poll::Pending
+        }
+    }
+}
+</code></pre>
+<p>이것은 여러 futures를 독립적인 각각의 할당 없이 동시에 실행할 수 있는 방법을 보여 줍니다.
+이러한 기능은 보다 효율적인 비동기식 프로그램을 허용합니다.
+마찬가지로 다음과 같이 여러 순차 futures을 차례로 실행할 수도 있습니다.</p>
+<pre><code class="language-rust ignore">/// A SimpleFuture that runs two futures to completion, one after another.
+//
+// Note: for the purposes of this simple example, `AndThenFut` assumes both
+// the first and second futures are available at creation-time. The real
+// `AndThen` combinator allows creating the second future based on the output
+// of the first future, like `get_breakfast.and_then(|food| eat(food))`.
+pub struct AndThenFut&lt;FutureA, FutureB&gt; {
+    first: Option&lt;FutureA&gt;,
+    second: FutureB,
+}
+
+impl&lt;FutureA, FutureB&gt; SimpleFuture for AndThenFut&lt;FutureA, FutureB&gt;
+where
+    FutureA: SimpleFuture&lt;Output = ()&gt;,
+    FutureB: SimpleFuture&lt;Output = ()&gt;,
+{
+    type Output = ();
+    fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
+        if let Some(first) = &amp;mut self.first {
+            match first.poll(wake) {
+                // We've completed the first future-- remove it and start on
+                // the second!
+                Poll::Ready(()) =&gt; self.first.take(),
+                // We couldn't yet complete the first future.
+                Poll::Pending =&gt; return Poll::Pending,
+            };
+        }
+        // Now that the first future is done, attempt to complete the second.
+        self.second.poll(wake)
+    }
+}
+</code></pre>
+<p>이 예는 <code>Future</code> trait을 사용하여 여러 개의 할당된 객체와 깊이 중첩된 콜백 없이
+비동기 제어를 표현하는 방법을 보여줍니다.
+기본적인 제어 흐름에 대해 설명하였으니. 
+실제 <code>Future</code> trait과 그것의 차별성을 살펴보겠습니다.</p>
+<pre><code class="language-rust ignore">trait Future {
+    type Output;
+    fn poll(
+        // Note the change from `&amp;mut self` to `Pin&lt;&amp;mut Self&gt;`:
+        self: Pin&lt;&amp;mut Self&gt;,
+        // and the change from `wake: fn()` to `cx: &amp;mut Context&lt;'_&gt;`:
+        cx: &amp;mut Context&lt;'_&gt;,
+    ) -&gt; Poll&lt;Self::Output&gt;;
+}
+</code></pre>
+<p>가장 먼저 눈에 띄는 변화는 <code>self</code> type이 더 이상 <code>&amp;mut self</code>가 아니라는 것입니다.
+이 것은 <code>Pin&lt;&amp;mut Self&gt;</code>로 변경 되었습니다. 나중에 Pin에 대해 자세히 설명하겠습니다<a href="02_execution/../04_pinning/01_chapter.html">pinning</a>.
+지금은 우리가 만드는 future가 재배치 될 수 없다는 것 정도로 이해하고 넘어 갑시다.
+재배치 될 수 없는 객체는 필드 사이에 포인터를 저장할 수 있습니다.
+예 : <code>struct MyFut { a: i32, ptr_to_a: * const i32 }</code>.
+Pinning은 async/await를 활성화 하는데 필요합니다.</p>
+<p>둘째, <code>wake: fn()</code>은 <code>&amp;mut Context&lt;'_&gt;</code>로 변경되었습니다.
+<code>SimpleFuture</code>에서
+우리는 함수 포인터 (<code>fn()</code>)을 호출하여 future의 executor에게
+해당 future는 poll되어야 한다고 알려 주었습니다. 그러나 fn()은
+함수 포인터일 뿐이고 이를 사용하면 future에 대한 호출과 관련된 데이터를 저장할 수 없습니다.</p>
+<p>실제 시나리오에서, 웹 서버와 같은 복잡한 응용 프로그램은
+수천 개의 서로 다른 커넥션과 관련된 웨이크 업이 모두 별도로 관리 되어야 
+됩니다. <code>Context</code> type은
+특정 작업을 깨우는 데 사용할 수있는 <code>Waker</code> type의 값에 접근하도록 해 주어서 이 문제를 해결 합니다.</p>
+<h1><a class="header" href="#waker로-타스크-깨우기" id="waker로-타스크-깨우기"><code>Waker</code>로 타스크 깨우기</a></h1>
+<p>futures가 처음에 <code>poll</code> 되어서 일을 완성 할 수 없는 경우가 일반적 입니다.
+이 경우 futures는 더 진전 될 준비가 되면 polling 되도록 해야 합니다.
+이것은 <code>Waker</code> type으로 이루어집니다.</p>
+<p>futures가 polling 될 때마다 &quot;task&quot;의 일부로 polling됩니다. Task는
+executor에게 제출 된 최상위 future 입니다.</p>
+<p><code>Waker</code>는 executor에게 해당 task가 깨어나야 한다고 말해주는 <code>wake()</code>메소드를 제공 합니다.
+<code>wake()</code>가 호출되면 executor는
+<code>Waker</code>와 관련된 작업이 진행될 준비가 되었음을 알고
+future는 다시 폴링 됩니다.</p>
+<p><code>Waker</code>는 <code>clone()</code>도 구현하여 복사하고 저장할 수 있습니다.</p>
+<p><code>Waker</code>를 사용하여 간단한 타이머 future를 구현해 봅시다.</p>
+<h2><a class="header" href="#응용--타이머-만들기" id="응용--타이머-만들기">응용 : 타이머 만들기</a></h2>
+<p>예제를 단순회하기 위해 타이머가 시작될 때 새 스레드를 실행 시킵니다.
+필요한 시간 동안 sleep 모드로 전환 한 다음, 시간 구간이 경과했을 때 타이머에 신호를 보냅니다.</p>
+<p>시작하면서 해야 할 imports는 다음과 같습니다.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use {
+    std::{
+        future::Future,
+        pin::Pin,
+        sync::{Arc, Mutex},
+        task::{Context, Poll, Waker},
+        thread,
+        time::Duration,
+    },
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>future type 자체를 정의하며 시작하겠습니다. 우리의 future는
+타이머가 경과하고 future가 완료 되어야 함을 스레드에게 알려주어야 할 방법이 있어야 합니다.
+공유 된 <code>Arc&lt;Mutex&lt;.. &gt;&gt;</code> 값을 사용하여 스레드와 future 간의 통신을 하도록 하겠습니다.</p>
+<pre><code class="language-rust ignore">pub struct TimerFuture {
+    shared_state: Arc&lt;Mutex&lt;SharedState&gt;&gt;,
+}
+
+/// Shared state between the future and the waiting thread
+struct SharedState {
+    /// Whether or not the sleep time has elapsed
+    completed: bool,
+
+    /// The waker for the task that `TimerFuture` is running on.
+    /// The thread can use this after setting `completed = true` to tell
+    /// `TimerFuture`'s task to wake up, see that `completed = true`, and
+    /// move forward.
+    waker: Option&lt;Waker&gt;,
+}
+</code></pre>
+<p>이제, 실제로 <code>Future</code>를 구현하도록 하겠습니다!</p>
+<pre><code class="language-rust ignore">impl Future for TimerFuture {
+    type Output = ();
+    fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;Self::Output&gt; {
+        // Look at the shared state to see if the timer has already completed.
+        let mut shared_state = self.shared_state.lock().unwrap();
+        if shared_state.completed {
+            Poll::Ready(())
+        } else {
+            // Set waker so that the thread can wake up the current task
+            // when the timer has completed, ensuring that the future is polled
+            // again and sees that `completed = true`.
+            //
+            // It's tempting to do this once rather than repeatedly cloning
+            // the waker each time. However, the `TimerFuture` can move between
+            // tasks on the executor, which could cause a stale waker pointing
+            // to the wrong task, preventing `TimerFuture` from waking up
+            // correctly.
+            //
+            // N.B. it's possible to check for this using the `Waker::will_wake`
+            // function, but we omit that here to keep things simple.
+            shared_state.waker = Some(cx.waker().clone());
+            Poll::Pending
+        }
+    }
+}
+</code></pre>
+<p>아주 간단 하죠? 스레드가 <code>shared_state.completed = true</code>를 설정 한 경우
+우리는 다한 것 입니다! 그렇지 않으면 현재 작업에 대한 <code>Waker</code>를 복제하여
+스레드가 작업을 다시 시작할 수 있도록 <code>shared_state.waker</code>에게 넘겨주어야 합니다.</p>
+<p>중요한 것은 future가 poll 될 때마다 <code>Waker</code>를 업데이트 해야 한다는 것입니다.
+future는 다른 <code>Waker</code>를 가지고 다른 작업으로 이동 했을 수 있기 때문 입니다.
+이것은 poll된 이후의 작업들 사이에 futures가 전달 될 때 발생합니다.</p>
+<p>마지막으로 실제로 타이머를 구성하고 스레드를 시작하려면 관련 API가 필요합니다.</p>
+<pre><code class="language-rust ignore">impl TimerFuture {
+    /// Create a new `TimerFuture` which will complete after the provided
+    /// timeout.
+    pub fn new(duration: Duration) -&gt; Self {
+        let shared_state = Arc::new(Mutex::new(SharedState {
+            completed: false,
+            waker: None,
+        }));
+
+        // Spawn the new thread
+        let thread_shared_state = shared_state.clone();
+        thread::spawn(move || {
+            thread::sleep(duration);
+            let mut shared_state = thread_shared_state.lock().unwrap();
+            // Signal that the timer has completed and wake up the last
+            // task on which the future was polled, if one exists.
+            shared_state.completed = true;
+            if let Some(waker) = shared_state.waker.take() {
+                waker.wake()
+            }
+        });
+
+        TimerFuture { shared_state }
+    }
+}
+</code></pre>
+<p>우와! 이것이 간단한 타이머 future를 만드는 데 필요한 전부입니다. 만약 우리가 future를 실행할 executor를 가지고 있다면 말이죠...</p>
+<h1><a class="header" href="#응용-executor-만들기" id="응용-executor-만들기">응용: Executor 만들기</a></h1>
+<p>Rust의 <code>Future</code>는 게으르다 : 그들은 적극적으로 추진하지 않으면 아무 것도 하지 않을 것이다.
+future를 완료시키는 한 가지 방법은 <code>async</code> 함수 안에서 <code>.await</code>를 사용 하는 것 입니다.
+이지만 문제를 한 단계 위로 올릴 뿐입니다.
+최상위 <code>async</code> 함수에서 반환 된 future을 누가 실행 합니까? 정답은
+우리는<code>Future</code> executor가 필요합니다.</p>
+<p><code>Future</code> executor 들은 최상위 <code>Future</code> 세트를 가져 와서 완성까지
+<code>Future</code>가 진행될 수 있을 때 마다 <code>poll</code>을 호출하여 타스크를 진행 시킵니다.
+일반적으로
+executor는 future에 먼저 한 번 <code>polling</code>을 시작합니다. <code>Future</code>가
+<code>wake()</code>를 호출하여 진행할 준비가 되었음을 표시하면, 그들은 큐에 다시 배치되고
+<code>poll</code>이 다시 호출되어 <code>Future</code>가
+완료될 때까지 이 과정이 반복됩니다.</p>
+<p>이 섹션에서는 대규모로 future를 실행할 수 있는 간단한 executor 프로그램을 작성합니다.</p>
+<p>이 예에서는 <code>ArcWake</code> trait을 구현한 <code>futures</code> crate에 의존합니다.
+이 것은 <code>Waker</code>를 구성하는 쉬운 방법을 제공합니다.</p>
+<pre><code class="language-toml">[package]
+name = &quot;xyz&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;XYZ Author&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+futures = &quot;0.3&quot;
+</code></pre>
+<p>다음으로, 우리는 다음의 의존성을 <code>src/main.rs</code>의 맨 위에 추가합니다 :</p>
+<pre><code class="language-rust ignore">use {
+    futures::{
+        future::{FutureExt, BoxFuture},
+        task::{ArcWake, waker_ref},
+    },
+    std::{
+        future::Future,
+        sync::{Arc, Mutex},
+        sync::mpsc::{sync_channel, SyncSender, Receiver},
+        task::{Context, Poll},
+        time::Duration,
+    },
+    // The timer we wrote in the previous section:
+    timer_future::TimerFuture,
+};
+</code></pre>
+<p>우리의 executor는 채널을 통해 실행할 작업을 보내서 작동합니다. Executor는
+채널에서 이벤트를 가져 와서 실행합니다. 작업이 재 실행 될 준비가 되면(awoken)
+그것은 자신을 재 스케즆링 하여 다시 폴링되도록 예약 할 수 있습니다.
+재 스케쥴링은 자신을 채널로 다시 넘겨 줌으로써 이루어 집니다.</p>
+<p>이 디자인에서 executor 프로그램 자체는 타스크 채널의 수신 end-point만 필요합니다.
+사용자는 새로운 futures을 spawn할 수 있도록 송신 end-point을 얻습니다.
+타스크 자체는 자신을 재 스케쥴링이 가능한 future 일 뿐이므로
+작업을 다시 큐에 보내는 데 사용할 수 있는 sender와 pairing 된 future로 저장 됩니다.</p>
+<pre><code class="language-rust ignore">/// Task executor that receives tasks off of a channel and runs them.
+struct Executor {
+    ready_queue: Receiver&lt;Arc&lt;Task&gt;&gt;,
+}
+
+/// `Spawner` spawns new futures onto the task channel.
+#[derive(Clone)]
+struct Spawner {
+    task_sender: SyncSender&lt;Arc&lt;Task&gt;&gt;,
+}
+
+/// A future that can reschedule itself to be polled by an `Executor`.
+struct Task {
+    /// In-progress future that should be pushed to completion.
+    ///
+    /// The `Mutex` is not necessary for correctness, since we only have
+    /// one thread executing tasks at once. However, Rust isn't smart
+    /// enough to know that `future` is only mutated from one thread,
+    /// so we need use the `Mutex` to prove thread-safety. A production
+    /// executor would not need this, and could use `UnsafeCell` instead.
+    future: Mutex&lt;Option&lt;BoxFuture&lt;'static, ()&gt;&gt;&gt;,
+
+    /// Handle to place the task itself back onto the task queue.
+    task_sender: SyncSender&lt;Arc&lt;Task&gt;&gt;,
+}
+
+fn new_executor_and_spawner() -&gt; (Executor, Spawner) {
+    // Maximum number of tasks to allow queueing in the channel at once.
+    // This is just to make `sync_channel` happy, and wouldn't be present in
+    // a real executor.
+    const MAX_QUEUED_TASKS: usize = 10_000;
+    let (task_sender, ready_queue) = sync_channel(MAX_QUEUED_TASKS);
+    (Executor { ready_queue }, Spawner { task_sender })
+}
+</code></pre>
+<p>새로운 futures을 쉽게 spawn 할 수 있는 method을 spawner에 추가합시다.
+이 방법은 future의 type을 취하여 box에 넣고, 다음과 같이 새로운 <code>Arc&lt;Task&gt;</code>를 만듭니다.
+이것은 executor의 큐에 넣을 수 있는 객체가 됩니다.</p>
+<pre><code class="language-rust ignore">impl Spawner {
+    fn spawn(&amp;self, future: impl Future&lt;Output = ()&gt; + 'static + Send) {
+        let future = future.boxed();
+        let task = Arc::new(Task {
+            future: Mutex::new(Some(future)),
+            task_sender: self.task_sender.clone(),
+        });
+        self.task_sender.send(task).expect(&quot;too many tasks queued&quot;);
+    }
+}
+</code></pre>
+<p>future을 폴링하려면 <code>Waker</code>를 만들어야 합니다.
+<a href="02_execution/./03_wakeups.html">Task 깨우기 섹션</a>에서 논의한 바와 같이, <code>Waker</code>는
+<code>wake</code>가 호출되면 작업이 다시 폴링되도록 예약하는 책임이 있습니다.
+<code>Waker</code>는 executor에게 어떤 작업이 준비 되었는지 정확하게 알려 준다는 점을 기억하세요.
+그들은 전진 할 준비가 되어 있는 future에 대해서만 polling을 합니다. 새로운 <code>Waker</code>를 만들려면 가장 쉬운 방법이
+<code>ArcWake</code> trait을 구현 한 다음
+<code>waker_ref</code> 또는 <code>.into_waker()</code> 함수를 사용하여 <code>Arc&lt;impl ArcWake&gt;</code>
+를 <code>Waker</code>로 만드는 것입니다. 우리의 타스크를 위해 <code>ArcWake</code>를 구현해 봅시다.</p>
+<pre><code class="language-rust ignore">impl ArcWake for Task {
+    fn wake_by_ref(arc_self: &amp;Arc&lt;Self&gt;) {
+        // Implement `wake` by sending this task back onto the task channel
+        // so that it will be polled again by the executor.
+        let cloned = arc_self.clone();
+        arc_self.task_sender.send(cloned).expect(&quot;too many tasks queued&quot;);
+    }
+}
+</code></pre>
+<p><code>Arc&lt;Task&gt;</code>에서 <code>Waker</code>가 생성되면 <code>wake()</code>를 호출하는 행위는
+<code>Arc</code>의 복사본을 만들게 되고, 이 복사본은 타스크 채널로 전송 되도록 합니다. 우리의 executor는 그 다음
+타스크를 선택하고 폴링 해야 합니다. 그것을 구현해 봅시다 :</p>
+<pre><code class="language-rust ignore">impl Executor {
+    fn run(&amp;self) {
+        while let Ok(task) = self.ready_queue.recv() {
+            // Take the future, and if it has not yet completed (is still Some),
+            // poll it in an attempt to complete it.
+            let mut future_slot = task.future.lock().unwrap();
+            if let Some(mut future) = future_slot.take() {
+                // Create a `LocalWaker` from the task itself
+                let waker = waker_ref(&amp;task);
+                let context = &amp;mut Context::from_waker(&amp;*waker);
+                // `BoxFuture&lt;T&gt;` is a type alias for
+                // `Pin&lt;Box&lt;dyn Future&lt;Output = T&gt; + Send + 'static&gt;&gt;`.
+                // We can get a `Pin&lt;&amp;mut dyn Future + Send + 'static&gt;`
+                // from it by calling the `Pin::as_mut` method.
+                if let Poll::Pending = future.as_mut().poll(context) {
+                    // We're not done processing the future, so put it
+                    // back in its task to be run again in the future.
+                    *future_slot = Some(future);
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>축하합니다! 우리는 이제 futures executor를 갖고 있습니다. 우리는 그것을 <code>Async/.await</code>코드와 우리가 이미 작성 해본
+<code>TimerFuture</code>와 같은 커스텀 future을 실행하기 위해
+사용할 수 있습니다 :</p>
+<pre><code class="language-rust edition2018 ignore">fn main() {
+    let (executor, spawner) = new_executor_and_spawner();
+
+    // Spawn a task to print before and after waiting on a timer.
+    spawner.spawn(async {
+        println!(&quot;howdy!&quot;);
+        // Wait for our timer future to complete after two seconds.
+        TimerFuture::new(Duration::new(2, 0)).await;
+        println!(&quot;done!&quot;);
+    });
+
+    // Drop the spawner so that our executor knows it is finished and won't
+    // receive more incoming tasks to run.
+    drop(spawner);
+
+    // Run the executor until the task queue is empty.
+    // This will print &quot;howdy!&quot;, pause, and then print &quot;done!&quot;.
+    executor.run();
+}
+</code></pre>
+<h1><a class="header" href="#executor와-시스템-io" id="executor와-시스템-io">Executor와 시스템 IO</a></h1>
+<p>앞의 <a href="02_execution/./02_future.html">Future Trait</a> 섹션에서, 우리는
+소켓에서 비동기 읽기를 수행 한 future에 대해 논의한 적이 있습니다 :</p>
+<pre><code class="language-rust ignore">pub struct SocketRead&lt;'a&gt; {
+    socket: &amp;'a Socket,
+}
+
+impl SimpleFuture for SocketRead&lt;'_&gt; {
+    type Output = Vec&lt;u8&gt;;
+
+    fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
+        if self.socket.has_data_to_read() {
+            // The socket has data-- read it into a buffer and return it.
+            Poll::Ready(self.socket.read_buf())
+        } else {
+            // The socket does not yet have data.
+            //
+            // Arrange for `wake` to be called once data is available.
+            // When data becomes available, `wake` will be called, and the
+            // user of this `Future` will know to call `poll` again and
+            // receive data.
+            self.socket.set_readable_callback(wake);
+            Poll::Pending
+        }
+    }
+}
+</code></pre>
+<p>이 future는 소켓에서 사용 가능한 데이터를 읽을 수 있으며 사용 가능한 데이터가 없으면
+executor에게 제어를 내어주어 소켓이 다시 읽기가 가능해질 때 작업을 깨울 것을 요청합니다.
+그러나 이 예제에서 어떻게 <code>Socket</code> type이 구현되었는지 명확하지 않습니다.
+특히 <code>set_readable_callback</code> 함수가 어떻게 작동하는지 명확하지 않습니다.
+소켓을 읽을 수 있게 되면 <code>wake()</code>를 어떻게 호출 할 수 있습니까?
+한 가지 옵션은
+<code>Socket</code>이 읽기 가능한지 계속 확인 하는 스레드를 만들어서 적절한 경우 <code>wake()</code>를 호출하도록 하는 것입니다.
+그러나 이 것은 매우 비효율적이며
+block된 각 IO future에 대한 각각 별도의 스레드 를 필요로 합니다.
+이것은 우리의 비동기 코드의 효율성을 크게 줄일 것입니다.</p>
+<p>실제로 이 문제는 IO-aware 시스템 blocking 프리미티브 와의 통합을 통해 해결됩니다.
+Linux의 <code>epoll</code>, FreeBSD의 <code>kqueue</code>와 같은 시스템 blocking 프리미티브,
+Mac OS, Windows의 IOCP 및 Fuchsia의 포트 (모두 크로스 플랫폼 Rust crate <a href="https://github.com/tokio-rs/mio">mio</a>를 통해 제공됨
+)와 같은 것이 그것 입니다. 이 프리미티브는 모두
+여러 비동기 IO 이벤트를 block하는 스레드로, 이벤트가 하나라도 완료돠면 리턴합니다.
+실제로 이러한 API는 일반적으로 다음과 같습니다 :</p>
+<pre><code class="language-rust ignore">struct IoBlocker {
+    /* ... */
+}
+
+struct Event {
+    // An ID uniquely identifying the event that occurred and was listened for.
+    id: usize,
+
+    // A set of signals to wait for, or which occurred.
+    signals: Signals,
+}
+
+impl IoBlocker {
+    /// Create a new collection of asynchronous IO events to block on.
+    fn new() -&gt; Self { /* ... */ }
+
+    /// Express an interest in a particular IO event.
+    fn add_io_event_interest(
+        &amp;self,
+
+        /// The object on which the event will occur
+        io_object: &amp;IoObject,
+
+        /// A set of signals that may appear on the `io_object` for
+        /// which an event should be triggered, paired with
+        /// an ID to give to events that result from this interest.
+        event: Event,
+    ) { /* ... */ }
+
+    /// Block until one of the events occurs.
+    fn block(&amp;self) -&gt; Event { /* ... */ }
+}
+
+let mut io_blocker = IoBlocker::new();
+io_blocker.add_io_event_interest(
+    &amp;socket_1,
+    Event { id: 1, signals: READABLE },
+);
+io_blocker.add_io_event_interest(
+    &amp;socket_2,
+    Event { id: 2, signals: READABLE | WRITABLE },
+);
+let event = io_blocker.block();
+
+// prints e.g. &quot;Socket 1 is now READABLE&quot; if socket one became readable.
+println!(&quot;Socket {:?} is now {:?}&quot;, event.id, event.signals);
+</code></pre>
+<p>Futures executor는 이러한 프리미티브를 사용하여 비동기 IO 오브젝트를 제공 할 수 있습니다.
+이 오브젝트는 소켓과 같이 특정 IO 이벤트가 발생할 때 콜백이 실행되도록 구성 할 수 있습니다.
+위의 <code>SocketRead</code> 예제의 경우
+<code>Socket::set_readable_callback</code> 함수는 다음의 의사 코드 처럼 보일 수 있습니다.</p>
+<pre><code class="language-rust ignore">impl Socket {
+    fn set_readable_callback(&amp;self, waker: Waker) {
+        // `local_executor` is a reference to the local executor.
+        // this could be provided at creation of the socket, but in practice
+        // many executor implementations pass it down through thread local
+        // storage for convenience.
+        let local_executor = self.local_executor;
+
+        // Unique ID for this IO object.
+        let id = self.id;
+
+        // Store the local waker in the executor's map so that it can be called
+        // once the IO event arrives.
+        local_executor.event_map.insert(id, waker);
+        local_executor.add_io_event_interest(
+            &amp;self.socket_file_descriptor,
+            Event { id, signals: READABLE },
+        );
+    }
+}
+</code></pre>
+<p>이제 적절한 <code>Waker</code>에 IO 이벤트를 분배하는 하나의 executor 스레드만 가질 수 있습니다.
+이 스레드는 해당 타스크를 깨우고, executor가 리턴하기 전에
+더 많은 타스크를 완료 할 수 있도록 해주기 위하여 더 IO 이벤트가 있는지 체크합니다
+(그리고 이 사이클은 계속됩니다 ...).</p>
+<h1><a class="header" href="#asyncawait" id="asyncawait"><code>async</code>/<code>.await</code></a></h1>
+<p><a href="03_async_await/../01_getting_started/04_async_await_primer.html">1 장</a>에서 우리는 <code>async</code>/<code>.await</code>에 대해 간단히 살펴 보았고
+간단한 서버를 구축하는데 사용했습니다. 이 장에서는 <code>async</code>/<code>.await</code>에 대해 일반론 적인 설명과
+작동 방식 및 비동기 코드와 전통적인 Rust 프로그램 과의 차이점에 대해 자세히 설명합니다.</p>
+<p><code>async</code>/<code>.await</code>는 Rust 구문의 특별한 부분으로
+block하지 않고 현재 스레드의 제어를 내어 놓아서 작업이 완료되기를 기다리는 동안 다른 코드가 진행될 수 있게 해줍니다.</p>
+<p><code>async</code>를 사용하는 두 가지 주요 방법이 있습니다 : <code>async fn</code> 및 <code>async</code> 블록.
+각각은 <code>Future</code> trait을 구현하는 값을 반환합니다 : </p>
+<pre><code class="language-rust edition2018 ignore">
+// `foo()` returns a type that implements `Future&lt;Output = u8&gt;`.
+// `foo().await` will result in a value of type `u8`.
+async fn foo() -&gt; u8 { 5 }
+
+fn bar() -&gt; impl Future&lt;Output = u8&gt; {
+    // This `async` block results in a type that implements
+    // `Future&lt;Output = u8&gt;`.
+    async {
+        let x: u8 = foo().await;
+        x + 5
+    }
+}
+</code></pre>
+<p>첫 장에서 보았듯이 <code>async</code> 본문과 다른 futures는 게으릅니다.
+그들은 execute 될 때까지 아무 것도 하지 않습니다. <code>Future</code>를 실행하는 가장 일반적인 방법은
+<code>.await</code> 입니다. <code>.await</code>가 <code>Future</code> 에서 호출되면 완료까지 실행을 시도합니다.
+<code>Future</code>가 block되면 제어권을 내어 놓아 다른 future가 제어를 얻을 수 있습니다.
+더 많은 진전이 가능할 때 해당 <code>Future</code>가 executor에 의해 선택됩니다.
+Executor에 의해 실행을 재개하여 <code>.await</code>가 완결 되도록 합니다.</p>
+<h2><a class="header" href="#async-생명주기" id="async-생명주기"><code>async</code> 생명주기</a></h2>
+<p>전통적인 함수와 달리, reference 또는
+non-static인 인수를 취하는 <code>async fn</code>는 생명주기가 인수의 생명주기에 묶여 있는 <code>Future</code>를 반환합니다 :</p>
+<pre><code class="language-rust edition2018 ignore">// This function:
+async fn foo(x: &amp;u8) -&gt; u8 { *x }
+
+// Is equivalent to this function:
+fn foo_expanded&lt;'a&gt;(x: &amp;'a u8) -&gt; impl Future&lt;Output = u8&gt; + 'a {
+    async move { *x }
+}
+</code></pre>
+<p>이는 <code>async fn</code>에서 반환 된 future가 정적이 아닌 인수가 여전히 유효한 동안에 <code>.await</code> 되여야 함을 의미합니다.
+함수를 호출 한 직후에 future를 기다리는 <code>.await</code>의 경우
+(<code>foo(&amp;x).await</code> 와 같이) 이것은 문제가 되지 않습니다. 그러나 future를 저장하거나
+다른 작업이나 스레드로 전송하면 문제가 될 수 있습니다.</p>
+<p>reference를 인수로 갖는 <code>async fn</code>을 <code>static</code> future로 설정하는 일반적인 해결 방법은
+<code>async</code> 블록 안에서 <code>async fn</code> 을 호출하면서 인수를 함께 엮어 주는 것입니다 :</p>
+<pre><code class="language-rust edition2018 ignore">fn bad() -&gt; impl Future&lt;Output = u8&gt; {
+    let x = 5;
+    borrow_x(&amp;x) // ERROR: `x` does not live long enough
+}
+
+fn good() -&gt; impl Future&lt;Output = u8&gt; {
+    async {
+        let x = 5;
+        borrow_x(&amp;x).await
+    }
+}
+</code></pre>
+<p>인수를 <code>async</code> 블록으로 옮기면 수명이 연장되어 <code>good</code>에 대한 호출에서 리턴된 <code>Future</code>의 수명과 일치 되었습니다.</p>
+<h2><a class="header" href="#async-move" id="async-move"><code>async move</code></a></h2>
+<p><code>async</code> 블록과 클로저는 보통의 클로져와 마찬가지로 <code>move</code> 키워드를 허용합니다.
+<code>async move</code> 블록은 변수가 참조하는 데이터의 소유권을 갖고
+, 현재 scope보다 오래 생염이 유지되도록 허용해 주지만
+해당 변수를 다른 코드와 공유하는 기능을 포기합니다.</p>
+<pre><code class="language-rust edition2018 ignore">/// `async` block:
+///
+/// Multiple different `async` blocks can access the same local variable
+/// so long as they're executed within the variable's scope
+async fn blocks() {
+    let my_string = &quot;foo&quot;.to_string();
+
+    let future_one = async {
+        // ...
+        println!(&quot;{}&quot;, my_string);
+    };
+
+    let future_two = async {
+        // ...
+        println!(&quot;{}&quot;, my_string);
+    };
+
+    // Run both futures to completion, printing &quot;foo&quot; twice:
+    let ((), ()) = futures::join!(future_one, future_two);
+}
+
+/// `async move` block:
+///
+/// Only one `async move` block can access the same captured variable, since
+/// captures are moved into the `Future` generated by the `async move` block.
+/// However, this allows the `Future` to outlive the original scope of the
+/// variable:
+fn move_block() -&gt; impl Future&lt;Output = ()&gt; {
+    let my_string = &quot;foo&quot;.to_string();
+    async move {
+        // ...
+        println!(&quot;{}&quot;, my_string);
+    }
+}
+</code></pre>
+<h2><a class="header" href="#멀티-스레드-executor-에서의-await" id="멀티-스레드-executor-에서의-await">멀티 스레드 Executor 에서의 <code>.await</code></a></h2>
+<p>멀티 스레드 <code>Future</code> executor를 사용할 때 <code>Future</code>가 스레드 간에 이동 할 수 있습니다.
+따라서 비동기 바디에 사용 된 모든 변수는 스레드 사이에 이동 가능 해야 합니다.
+<code>.await</code>는 잠재적으로 새로운 스레드로 전환 되는 결과를 가질 수 있습니다.</p>
+<p>이것은 <code>Rc</code>, <code>&amp;RefCell</code> 또는 다른 <code>Send</code> trait을 구현하지 않는 type을 사용하는 것이
+안전하지 않다는 것을 의미합니다. 이 것은 <code>Sync</code>를 구현하지 않은 type을 사용하는 것에도 해당됩니다.</p>
+<p>(주의: 이 type이 <code>.await</code>를 호출하는 동안의 scope 내에 있지 않는한 이 type 들을 사용할 수 있습니다.)</p>
+<p>마찬가지로, future를 인식하지 못하는 전통적인 lock을 <code>.await</code>를 가로 질러
+유지하는 것은 좋지 않습니다.
+왜냐하면 스레드 풀이 잠길 수 있기 때문입니다 : 하나의 작업이
+<code>.await</code> lock을 갖고 있다가 executor에 제어를 양보하여 다른 작업을 수행 할 수 있는데
+그 다른 작업이 lock하려고 하면 교착 상태를 유발합니다. 이것을 피하려면
+<code>std::sync</code>에 있는 것이 아니라 <code>futures::lock</code>에 있는 <code>Mutex</code>를 사용하십시오.</p>
+<h1><a class="header" href="#pinning" id="pinning">Pinning</a></h1>
+<p>futures을 폴링하려면 <code>Pin&lt;T&gt;</code> 라는 특수 type을 사용하여 고정 해야 합니다.
+이전 섹션 <a href="04_pinning/../02_execution/01_chapter.html">Future와 타스크의 실행</a>에서 <a href="04_pinning/../02_execution/02_future.html">Future trait</a>에 대한 설명을 읽으면
+<code>Future::poll</code> 메소드 정의의 <code>self: Pin&lt;&amp;mut Self&gt;</code>에서 <code>Pin</code>을 볼 수 있습니다.
+그러나 그것은 무엇을 의미하며, 왜 우리는 그것을 필요로 합니까?</p>
+<h2><a class="header" href="#pinning하는-이유" id="pinning하는-이유">Pinning하는 이유</a></h2>
+<p>피닝을 사용하면 객체가 절대 움직이지 않을 수 있습니다.
+이것이 왜 필요한지 이해하려면 <code>async</code>/<code>.await</code> 작동하는 방법을 기억해야합니다.
+다음 코드를 고려하십시오.</p>
+<pre><code class="language-rust edition2018 ignore">let fut_one = /* ... */;
+let fut_two = /* ... */;
+async move {
+    fut_one.await;
+    fut_two.await;
+}
+</code></pre>
+<p>내부적으로 그것은 <code>Future</code>를 구현하는 익명 type을 만들며
+다음과 같은 <code>poll</code> 메소드를 제공합니다.</p>
+<pre><code class="language-rust ignore">// The `Future` type generated by our `async { ... }` block
+struct AsyncFuture {
+    fut_one: FutOne,
+    fut_two: FutTwo,
+    state: State,
+}
+
+// List of states our `async` block can be in
+enum State {
+    AwaitingFutOne,
+    AwaitingFutTwo,
+    Done,
+}
+
+impl Future for AsyncFuture {
+    type Output = ();
+
+    fn poll(mut self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;()&gt; {
+        loop {
+            match self.state {
+                State::AwaitingFutOne =&gt; match self.fut_one.poll(..) {
+                    Poll::Ready(()) =&gt; self.state = State::AwaitingFutTwo,
+                    Poll::Pending =&gt; return Poll::Pending,
+                }
+                State::AwaitingFutTwo =&gt; match self.fut_two.poll(..) {
+                    Poll::Ready(()) =&gt; self.state = State::Done,
+                    Poll::Pending =&gt; return Poll::Pending,
+                }
+                State::Done =&gt; return Poll::Ready(()),
+            }
+        }
+    }
+}
+</code></pre>
+<p><code>poll</code>이 처음 호출되면 <code>fut_one</code>을 폴링합니다. <code>fut_one</code>이 완료할 수 없다면
+<code>AsyncFuture::poll</code>이 반환됩니다. <code>poll</code>에 대한 Future의 호출은 이전 항목이 중단 된 위치로 선택됩니다.
+이 과정은 future가 성공적으로 완료 할 때까지 계속됩니다.</p>
+<p>그러나 reference를 사용하는 async 블록이 있으면 어떻게 됩니까?
+예를 들면 다음과 같습니다.</p>
+<pre><code class="language-rust edition2018 ignore">async {
+    let mut x = [0; 128];
+    let read_into_buf_fut = read_into_buf(&amp;mut x);
+    read_into_buf_fut.await;
+    println!(&quot;{:?}&quot;, x);
+}
+</code></pre>
+<p>이것은 어떤 구조체로 컴파일 됩니까?</p>
+<pre><code class="language-rust ignore">struct ReadIntoBuf&lt;'a&gt; {
+    buf: &amp;'a mut [u8], // points to `x` below
+}
+
+struct AsyncFuture {
+    x: [u8; 128],
+    read_into_buf_fut: ReadIntoBuf&lt;'what_lifetime?&gt;,
+}
+</code></pre>
+<p>여기서 <code>ReadIntoBuf</code> future는 우리 구조체의 다른 분야, <code>x</code>에 대한 참조를 보유 합니다.
+그러나 <code>AsyncFuture</code>가 이동하면 <code>x</code>의 위치 또한 이동하여
+<code>read_into_buf_fut.buf</code>에 저장된 포인터를 무효화 합니다.</p>
+<p>메모리의 특정 지점에 future을 고정하면 이 문제를 방지 할 수 있습니다.
+위치를 고정하는 방식으로 <code>async</code> 블록 내부의 값에 대한 참조를 생성하는 것이 안전합니다.</p>
+<h2><a class="header" href="#pinning-사용법" id="pinning-사용법">Pinning 사용법</a></h2>
+<p><code>Pin</code> type은 포인터 유형을 감싸서 내부에 있는 값을 이동하지 않는다고 보장합니다.
+예를 들어 <code>Pin&lt;&amp;mut T&gt;</code>, <code>Pin&lt;&amp;T&gt;</code>,
+<code>Pin&lt;Box&lt;T&gt;&gt;</code>는<code>T</code>가 움직이지 않을 것을 보장합니다.</p>
+<p>대부분의 type은 이동하는 데 문제가 없습니다. 이러한 type은 <code>Unpin</code>이라고 하는 trait을 자동으로 구현합니다.
+<code>Unpin</code> 타입에 대한 포인터는 자유롭게 삽입하거나 Pin으로 부터 가져갈 수 있습니다.
+예를 들어, <code>u8</code>은 <code>Unpin</code>이므로 <code>Pin&lt;&amp;mut u8&gt;</code>은 다음과 같이 정상적인 <code>&amp;mut u8</code>처럼 동작합니다.</p>
+<p>어떤 함수는 futures를 <code>Unpin</code>해야 합니다. 
+<code>Unpin</code>이 아닌 <code>Future</code> 또는 <code>Stream</code>을 <code>Unpin</code> type을 필요로 하는 함수와 함께 사용하려면
+<code>Box::pin</code>(<code>Pin&lt;Box&lt;T&gt;&gt;</code>생성) 또는 <code>pin_utils::pin_mut!</code> 매크로
+(<code>Pin&lt;&amp;mutT&gt;</code>를 만들기 위해)를 사용하여 값을 고정해야 합니다.
+<code>Pin&lt;Box&lt;Fut&gt;&gt;</code>과 <code>Pin&lt;&amp;mut Fut&gt;</code>은 모두
+futures로 사용되며 둘 다 <code>Unpin</code>을 구현합니다.</p>
+<p>예를 들면 다음과 같습니다.</p>
+<pre><code class="language-rust edition2018 ignore">use pin_utils::pin_mut; // `pin_utils` is a handy crate available on crates.io
+
+// A function which takes a `Future` that implements `Unpin`.
+fn execute_unpin_future(x: impl Future&lt;Output = ()&gt; + Unpin) { /* ... */ }
+
+let fut = async { /* ... */ };
+execute_unpin_future(fut); // Error: `fut` does not implement `Unpin` trait
+
+// Pinning with `Box`:
+let fut = async { /* ... */ };
+let fut = Box::pin(fut);
+execute_unpin_future(fut); // OK
+
+// Pinning with `pin_mut!`:
+let fut = async { /* ... */ };
+pin_mut!(fut);
+execute_unpin_future(fut); // OK
+</code></pre>
+<h1><a class="header" href="#stream-trait" id="stream-trait"><code>Stream</code> Trait</a></h1>
+<p><code>Stream</code> trait은 <code>Future</code>와 유사하지만 종료하기 이전에 여러 개의 값을 생성 할 수 있습니다.
+이느 표준 라이브러리의 <code>Iterator</code> trait과 유사합니다 :</p>
+<pre><code class="language-rust ignore">trait Stream {
+    /// The type of the value yielded by the stream.
+    type Item;
+
+    /// Attempt to resolve the next item in the stream.
+    /// Returns `Poll::Pending` if not ready, `Poll::Ready(Some(x))` if a value
+    /// is ready, and `Poll::Ready(None)` if the stream has completed.
+    fn poll_next(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;)
+        -&gt; Poll&lt;Option&lt;Self::Item&gt;&gt;;
+}
+</code></pre>
+<p><code>Stream</code>의 일반적인 예로는 <code>futures</code> crate의 channel type의 <code>Receiver</code>가 있습니다.
+<code>Sender</code>-end 에서 값이 전송 될 때마다 receiver에서는 <code>Some(val)</code>이 나옵니다.
+그리고 <code>Sender</code>가 삭제되고 보류 중인 모든 메시지가 수신되면 <code>None</code>을 산출 할 것입니다.</p>
+<pre><code class="language-rust edition2018 ignore">async fn send_recv() {
+    const BUFFER_SIZE: usize = 10;
+    let (mut tx, mut rx) = mpsc::channel::&lt;i32&gt;(BUFFER_SIZE);
+
+    tx.send(1).await.unwrap();
+    tx.send(2).await.unwrap();
+    drop(tx);
+
+    // `StreamExt::next` is similar to `Iterator::next`, but returns a
+    // type that implements `Future&lt;Output = Option&lt;T&gt;&gt;`.
+    assert_eq!(Some(1), rx.next().await);
+    assert_eq!(Some(2), rx.next().await);
+    assert_eq!(None, rx.next().await);
+}
+</code></pre>
+<h1><a class="header" href="#반복자와-동시성" id="반복자와-동시성">반복자와 동시성</a></h1>
+<p>동기 <code>Iterator</code>와 유사하게 <code>Stream</code>에서 값을 처리하고 반복하는 방법에는 여러 가지가 있습니다.
+콤비네이터 스타일의 <code>map</code>, <code>filter</code> 및 <code>fold</code>와 early-exit-on-error 류의
+<code>try_map</code>, <code>try_filter</code> 및 <code>try_fold</code> 메소드가 있습니다.</p>
+<p>불행히도 <code>for</code> 루프는 <code>Stream</code>과 함께 사용할 수 없지만
+imperative-style 코드, <code>while</code> 및 <code>next</code>/<code>try_next</code> 함수는
+사용될 수 있습니다 :</p>
+<pre><code class="language-rust edition2018 ignore">async fn sum_with_next(mut stream: Pin&lt;&amp;mut dyn Stream&lt;Item = i32&gt;&gt;) -&gt; i32 {
+    use futures::stream::StreamExt; // for `next`
+    let mut sum = 0;
+    while let Some(item) = stream.next().await {
+        sum += item;
+    }
+    sum
+}
+
+async fn sum_with_try_next(
+    mut stream: Pin&lt;&amp;mut dyn Stream&lt;Item = Result&lt;i32, io::Error&gt;&gt;&gt;,
+) -&gt; Result&lt;i32, io::Error&gt; {
+    use futures::stream::TryStreamExt; // for `try_next`
+    let mut sum = 0;
+    while let Some(item) = stream.try_next().await? {
+        sum += item;
+    }
+    Ok(sum)
+}
+</code></pre>
+<p>그러나 한 번에 하나의 요소만 처리하면 잠재적으로
+동시성에 대한 기회를 버리게 되고 결국 처음으로 돌아가서 우리가 왜
+비동기 코드를 작성하는지를 묻게 됩니다. 스트림에서 여러 항목을 동시에 처리하려면
+<code>for_each_concurrent</code>와 <code>try_for_each_concurrent</code>를 사용하십시오 :</p>
+<pre><code class="language-rust edition2018 ignore">async fn jump_around(
+    mut stream: Pin&lt;&amp;mut dyn Stream&lt;Item = Result&lt;u8, io::Error&gt;&gt;&gt;,
+) -&gt; Result&lt;(), io::Error&gt; {
+    use futures::stream::TryStreamExt; // for `try_for_each_concurrent`
+    const MAX_CONCURRENT_JUMPERS: usize = 100;
+
+    stream.try_for_each_concurrent(MAX_CONCURRENT_JUMPERS, |num| async move {
+        jump_n_times(num).await?;
+        report_n_jumps(num).await?;
+        Ok(())
+    }).await?;
+
+    Ok(())
+}
+</code></pre>
+<h1><a class="header" href="#동시에-다양한-future들을-실행하는-것" id="동시에-다양한-future들을-실행하는-것">동시에 다양한 Future들을 실행하는 것</a></h1>
+<p>지금까지, 우리는 <code>.await</code>을 사용해서 하나의 특정 <code>Future</code>가 완료할때까지 
+현재의 Task를 막는 future들을 보통 실행해왔습니다.
+그러나, 실제 비동기적인 어플리케이션들은 동시에 다른 작업들을 자주 실행해야합니다.</p>
+<p>이번 챕터에서, 우리는 같은 시간에 여러 비동기 작업들을 실행하는 방법을 다룰것입니다.</p>
+<ul>
+<li><code>join!</code>: futures이 모두 완료될때까지 기다립니다.</li>
+<li><code>select!</code>: future들 중 하나가 완료될때까지 기다립니다.</li>
+<li><code>Spawning</code>: 하나의 future가 완료될때까지 주변에서 실행되는 top-level 작업을 만듭니다.</li>
+<li><code>FuturesUnordered</code>: 각 subfuture의 결과를 yield하는 future들의 그룹.</li>
+</ul>
+<h1><a class="header" href="#join" id="join"><code>join!</code></a></h1>
+<p><code>futures::join</code>매크로는 동시에 future 모두가 실행되는 동안, 다른 여러 future들이 완료 될 때까지 기다릴수 있게 합니다.</p>
+<h1><a class="header" href="#join-1" id="join-1"><code>join!</code></a></h1>
+<p>여러 비동기 작업들이 수행되어지고 있을때, 단순히 일련의 <code>.await</code> 작업들을 하려는
+경향이 있습니다:</p>
+<pre><code class="language-rust edition2018 ignore">async fn get_book_and_music() -&gt; (Book, Music) {
+    let book = get_book().await;
+    let music = get_music().await;
+    (book, music)
+}
+</code></pre>
+<p>그렇지만, <code>get_book</code>이 완료된 이후까지도 <code>get_music</code>이 시작하지 않을 것이기 
+때문에 이것은 필요 이상으로 느립니다. 몇몇 다른 언어들에서, future들은 주변에서
+완료됩니다. 그래서 두 작업들은 future들을 시작하기 위해 각 <code>async fn</code> 우선 
+부름으로써 동시에 실행될 수 있습니다, 그리고 둘다 작업을 기다립니다:</p>
+<pre><code class="language-rust edition2018 ignore">// WRONG -- don't do this
+async fn get_book_and_music() -&gt; (Book, Music) {
+    let book_future = get_book();
+    let music_future = get_music();
+    (book_future.await, music_future.await)
+}
+</code></pre>
+<p>그렇지만, 러스트 future들은 적극적으로 <code>.await</code>되어질때까지 작동하지 않을것입니다.
+이것은 위의 두 코드 snippet들이 동시에 실행 되는것보다 차례대로 <code>book_future</code>와  <code>music_future</code>이 둘 다 실행될것입니다. 
+두 future들을 동시에 정확하게 실행하기 위해서, <code>futures::join!</code>을 사용해보세요:</p>
+<pre><code class="language-rust edition2018 ignore">use futures::join;
+
+async fn get_book_and_music() -&gt; (Book, Music) {
+    let book_fut = get_book();
+    let music_fut = get_music();
+    join!(book_fut, music_fut)
+}
+</code></pre>
+<p><code>join!</code>으로부터 리턴되는 값은 통과된 각 <code>Future</code>의 출력을 포함하는 하나의 튜플입니다.</p>
+<h2><a class="header" href="#try_join" id="try_join"><code>try_join!</code></a></h2>
+<p><code>Result</code>를 반환하는 future들은, <code>join!</code>보다 <code>try_join!</code>을 사용하는 것을 생각해봅시다. </p>
+<p><code>join!</code>은 모든 subfuture들이 완료하면 완료만 하기 때문에, subfuture들 중 하나가 <code>Err</code>를 리턴한 후에도 다른 future들을 처리하는것을 계속할것입니다.</p>
+<p><code>join!</code>과 달리, <code>try_join!</code>은 subfuture들 중 하나가 에러를 리턴하면 즉시 완료할 것입니다.</p>
+<pre><code class="language-rust edition2018 ignore">use futures::try_join;
+
+async fn get_book() -&gt; Result&lt;Book, String&gt; { /* ... */ Ok(Book) }
+async fn get_music() -&gt; Result&lt;Music, String&gt; { /* ... */ Ok(Music) }
+
+async fn get_book_and_music() -&gt; Result&lt;(Book, Music), String&gt; {
+    let book_fut = get_book();
+    let music_fut = get_music();
+    try_join!(book_fut, music_fut)
+}
+</code></pre>
+<p><code>try_join!</code>을 통과한 future들은 모두 같은 에러 타입을 가져야 된다는것을 알아야합니다.
+<code>futures::future::TryFutureExt</code>에서 에러 타입들을 합치기 위해서 <code>.map_err(|e| ...)</code> 와 <code>.err_into()</code>함수들을 사용하는 것을 생각해보세요.</p>
+<pre><code class="language-rust edition2018 ignore">use futures::{
+    future::TryFutureExt,
+    try_join,
+};
+
+async fn get_book() -&gt; Result&lt;Book, ()&gt; { /* ... */ Ok(Book) }
+async fn get_music() -&gt; Result&lt;Music, String&gt; { /* ... */ Ok(Music) }
+
+async fn get_book_and_music() -&gt; Result&lt;(Book, Music), String&gt; {
+    let book_fut = get_book().map_err(|()| &quot;Unable to get book&quot;.to_string());
+    let music_fut = get_music();
+    try_join!(book_fut, music_fut)
+}
+</code></pre>
+<h1><a class="header" href="#select" id="select"><code>select!</code></a></h1>
+<p><code>futures::select</code> 매크로는 어떤 future가 완료하자마자 사용자가 응답하는 것을 허락하는 다양한 future들을 실행합니다.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use futures::{
+    future::FutureExt, // for `.fuse()`
+    pin_mut,
+    select,
+};
+
+async fn task_one() { /* ... */ }
+async fn task_two() { /* ... */ }
+
+async fn race_tasks() {
+    let t1 = task_one().fuse();
+    let t2 = task_two().fuse();
+
+    pin_mut!(t1, t2);
+
+    select! {
+        () = t1 =&gt; println!(&quot;task one completed first&quot;),
+        () = t2 =&gt; println!(&quot;task two completed first&quot;),
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>위의 함수는 동시에 <code>t1</code>과 <code>t2</code>를 실행할것입니다.</p>
+<p><code>t1</code>나 <code>t2</code>가 끝날때, 해당하는 핸들러는 <code>println!</code>을 호출할것입니다. </p>
+<p>그리고 함수는 남아있는 작업을 완료하는것 없이 끝낼것입니다.</p>
+<p><code>select</code>의 기본 구문은 당신이 선택하고 싶은만큼의 많은 future들로 반복 되어지는<br />
+<code>&lt;pattern&gt; = &lt;expression&gt; =&gt; &lt;code&gt;,</code>입니다.</p>
+<h2><a class="header" href="#default---and-complete--" id="default---and-complete--"><code>default =&gt; ...</code> and <code>complete =&gt; ...</code></a></h2>
+<p><code>select</code> 또한 <code>defalut</code>와 <code>complete</code>분기를 지원합니다.</p>
+<p><code>default</code>분기는 <code>select</code>된 future들이 아무것도 완료되지 않으면 실행할것입니다.
+<code>default</code>는 준비된 다른 future들이 없다면 실행되므로 <code>default</code>분기와 함께 <code>select</code>은 항상 즉시 반환할것입니다. </p>
+<p><code>complete</code>분기들은 <code>select</code>가 된 모든 future들이 완료되어 더 이상 진행되지 않는
+경우에 처리를 하는데 사용될 수 있습니다.
+이것은 <code>select!</code>에 대해서 looping 할 때 꽤 편합니다.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use futures::{future, select};
+
+async fn count() {
+    let mut a_fut = future::ready(4);
+    let mut b_fut = future::ready(6);
+    let mut total = 0;
+
+    loop {
+        select! {
+            a = a_fut =&gt; total += a,
+            b = b_fut =&gt; total += b,
+            complete =&gt; break,
+            default =&gt; unreachable!(), // never runs (futures are ready, then complete)
+        };
+    }
+    assert_eq!(total, 10);
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#unpin-및-fusedfuture와의-상호작용" id="unpin-및-fusedfuture와의-상호작용"><code>Unpin</code> 및 <code>FusedFuture</code>와의 상호작용</a></h2>
+<p>위의 첫번째 예제에서 당신이 알렸을지도 모르는 것은 우리가 <code>pin_mut</code>로 future들을
+고정할뿐만 아니라 두개의 <code>async fn</code>로부터 반환되는 future들에서 <code>.fuse()</code>를 불렀어야 했던것입니다.
+이 두 호출은 <code>select</code>에서 사용되는 future들이 <code>Unpin</code>트레잇 과 <code>FusedFutre</code> 트레잇 둘 다 구현해야 하기때문에 필연적입니다.</p>
+<p><code>Unpin</code>은 <code>select</code>로부터 사용되는 future들이 값으로 가지는것이 아니라 mutable
+reference로 되는 것이기 때문에 필수적입니다.
+future의 소유권을 가지지 않음으로써, 완료되지 않은 future들은 <code>select</code>를 부른
+이 후에 사용 될 수 있습니다.</p>
+<p>마찬가지로, <code>select</code>가 완료한 후의 future를 폴링해서는 안되기 때문에 <code>FusedFuture</code>트레잇은 필요합니다. <code>FusedFuture</code>은 완료 여부를 추적하는 future들에 의해 구현됩니다.
+이것은 아직 완료되지 않은 future들만 폴링하는 loop에서 <code>select</code>를 사용할 수 있게 합니다. 이것은 loop를 통해서 <code>a_fut</code> 또는 <code>b_fut</code>이 두번째 완료되는 곳을 위의 예제에서 볼 수 있습니다.
+<code>future::ready</code>로부터 리턴되는 future는 <code>FusedFuture</code>를 구현하기 때문에, 다시 
+poll하지 않는 <code>select</code>를 말할 수 있습니다.</p>
+<p>스트림들은 상응하는 <code>FusedStream</code>을 가지는것을 알아야 합니다. 이 트레잇을 구현하거나 <code>.fuse()</code>를 사용하여 감싸진 스트림들은  스트림들의 <code>.next()</code>/ <code>.try_next()</code> 결합자들로부터 <code>FusedFuture</code>를 yiled할 것입니다.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use futures::{
+    stream::{Stream, StreamExt, FusedStream},
+    select,
+};
+
+async fn add_two_streams(
+    mut s1: impl Stream&lt;Item = u8&gt; + FusedStream + Unpin,
+    mut s2: impl Stream&lt;Item = u8&gt; + FusedStream + Unpin,
+) -&gt; u8 {
+    let mut total = 0;
+
+    loop {
+        let item = select! {
+            x = s1.next() =&gt; x,
+            x = s2.next() =&gt; x,
+            complete =&gt; break,
+        };
+        if let Some(next_num) = item {
+            total += next_num;
+        }
+    }
+
+    total
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h2><a class="header" href="#concurrent-tasks-in-a-select-loop-with-fuse-and-futuresunordered" id="concurrent-tasks-in-a-select-loop-with-fuse-and-futuresunordered">Concurrent tasks in a <code>select</code> loop with <code>Fuse</code> and <code>FuturesUnordered</code></a></h2>
+<h2><a class="header" href="#fuse와-futuresunordered-와-함께-select-루프에서-동시발생-작업들" id="fuse와-futuresunordered-와-함께-select-루프에서-동시발생-작업들"><code>Fuse</code>와 <code>FuturesUnordered</code> 와 함께 <code>select</code> 루프에서 동시발생 작업들</a></h2>
+<p>다소 발견하기 어렵지만 편리한 함수는 <code>Fuse::terminated()</code>입니다,
+이 함수는 이미 종료된 텅빈 future를 생성하는것을 허락하며, 나중에 실행해야 하는 future로 채워질 수 있습니다.</p>
+<p>이것은 <code>select</code> loop 내부에 스스로 만들어지고 <code>select</code> loop 동안 실행되야할 작업이 있을때, 편리할 수 있습니다.</p>
+<p><code>.select_next_some()</code>의 사용을 알아야합니다. 이것은 <code>None</code>들을 무시하는 스트림에서 반환되는 Some(_)값들의 분기만을 실행하기 위해 <code>select</code>와 함께 사용될 수 있습니다.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use futures::{
+    future::{Fuse, FusedFuture, FutureExt},
+    stream::{FusedStream, Stream, StreamExt},
+    pin_mut,
+    select,
+};
+
+async fn get_new_num() -&gt; u8 { /* ... */ 5 }
+
+async fn run_on_new_num(_: u8) { /* ... */ }
+
+async fn run_loop(
+    mut interval_timer: impl Stream&lt;Item = ()&gt; + FusedStream + Unpin,
+    starting_num: u8,
+) {
+    let run_on_new_num_fut = run_on_new_num(starting_num).fuse();
+    let get_new_num_fut = Fuse::terminated();
+    pin_mut!(run_on_new_num_fut, get_new_num_fut);
+    loop {
+        select! {
+            () = interval_timer.select_next_some() =&gt; {
+                // The timer has elapsed. Start a new `get_new_num_fut`
+                // if one was not already running.
+                if get_new_num_fut.is_terminated() {
+                    get_new_num_fut.set(get_new_num().fuse());
+                }
+            },
+            new_num = get_new_num_fut =&gt; {
+                // A new number has arrived-- start a new `run_on_new_num_fut`,
+                // dropping the old one.
+                run_on_new_num_fut.set(run_on_new_num(new_num).fuse());
+            },
+            // Run the `run_on_new_num_fut`
+            () = run_on_new_num_fut =&gt; {},
+            // panic if everything completed, since the `interval_timer` should
+            // keep yielding values indefinitely.
+            complete =&gt; panic!(&quot;`interval_timer` completed unexpectedly&quot;),
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>같은 future들의 많은 복사본들은 동시에 실행될때, <code>FutureUnordered</code> 타입을 사용하세요.</p>
+<pre><code>아래의 예제는 위에것과 비슷하지만, 새로운 것이 만들어질때 중단하는것보다 `run_on_new_num_fut`의 각 복사본을 완료할것입니다. 또한 `run_on_new_num_fut`으로 리턴된 값을 출력할 것입니다.
+</code></pre>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use futures::{
+    future::{Fuse, FusedFuture, FutureExt},
+    stream::{FusedStream, FuturesUnordered, Stream, StreamExt},
+    pin_mut,
+    select,
+};
+
+async fn get_new_num() -&gt; u8 { /* ... */ 5 }
+
+async fn run_on_new_num(_: u8) -&gt; u8 { /* ... */ 5 }
+
+// Runs `run_on_new_num` with the latest number
+// retrieved from `get_new_num`.
+//
+// `get_new_num` is re-run every time a timer elapses,
+// immediately cancelling the currently running
+// `run_on_new_num` and replacing it with the newly
+// returned value.
+async fn run_loop(
+    mut interval_timer: impl Stream&lt;Item = ()&gt; + FusedStream + Unpin,
+    starting_num: u8,
+) {
+    let mut run_on_new_num_futs = FuturesUnordered::new();
+    run_on_new_num_futs.push(run_on_new_num(starting_num));
+    let get_new_num_fut = Fuse::terminated();
+    pin_mut!(get_new_num_fut);
+    loop {
+        select! {
+            () = interval_timer.select_next_some() =&gt; {
+                // The timer has elapsed. Start a new `get_new_num_fut`
+                // if one was not already running.
+                if get_new_num_fut.is_terminated() {
+                    get_new_num_fut.set(get_new_num().fuse());
+                }
+            },
+            new_num = get_new_num_fut =&gt; {
+                // A new number has arrived-- start a new `run_on_new_num_fut`.
+                run_on_new_num_futs.push(run_on_new_num(new_num));
+            },
+            // Run the `run_on_new_num_futs` and check if any have completed
+            res = run_on_new_num_futs.select_next_some() =&gt; {
+                println!(&quot;run_on_new_num_fut returned {:?}&quot;, res);
+            },
+            // panic if everything completed, since the `interval_timer` should
+            // keep yielding values indefinitely.
+            complete =&gt; panic!(&quot;`interval_timer` completed unexpectedly&quot;),
+        }
+    }
+}
+
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#알고-사랑해야-할-방법들" id="알고-사랑해야-할-방법들">알고 사랑해야 할 방법들</a></h1>
+<p>Rust의 <code>비동기</code> 지원은 여전히 새로운 기술이며, 일부 하위 진단 기능과 함께 여전히 활발히 개발중인
+많은 기능이 요청되고 있스빈다. 이 장에서는 몇 가지 일반적인 고통을 주는 포인트에 대해 논의하며
+그 문제를 해결하는 방법을 설명할 것입니다.</p>
+<h1><a class="header" href="#타입-에러의-반환" id="타입-에러의-반환">타입 에러의 반환</a></h1>
+<p>일반적인 Rust 함수에서 잘못된 타입의 값을 반환하면
+다음과 같은 오류가 발생했습니다.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>error[E0308]: mismatched types
+ --&gt; src/main.rs:2:12
+  |
+1 | fn foo() {
+  |           - expected `()` because of default return type
+2 |     return &quot;foo&quot;
+  |            ^^^^^ expected (), found reference
+  |
+  = note: expected type `()`
+             found type `&amp;'static str`
+<span class="boring">}
+</span></code></pre></pre>
+<p>그러나 현재 <code>async fn</code>지원은 리턴 타입을 &quot;신뢰&quot; 할 수 없습니다.
+함수 시그니쳐와 타입이 일치하지 않거나, 심지어 리턴 값으로부터 추정되는 함수 시그니쳐 오류도
+이러한 문제에 포함됩니다.
+예를 들어, 함수
+<code>async fn foo () { &quot;foo&quot; }</code>는 다음의 오류를 발생시킵니다 :</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>error[E0271]: type mismatch resolving `&lt;impl std::future::Future as std::future::Future&gt;::Output == ()`
+ --&gt; src/lib.rs:1:16
+  |
+1 | async fn foo() {
+  |                ^ expected &amp;str, found ()
+  |
+  = note: expected type `&amp;str`
+             found type `()`
+  = note: the return type of a function must have a statically known size
+<span class="boring">}
+</span></code></pre></pre>
+<p>에러 메시지는 <code>&amp;str</code>을 예상하고 <code>()</code>를 찾았다고 말합니다.
+실제로 원하는 것과 정반대 입니다. 그 이유는
+컴파일러가 함수 본문을 잘못 신뢰하여 본분이 올바른 타입을 리턴 한다고 생각하기 때문입니다.</p>
+<p>이 문제의 해결 방법은
+&quot;<code>SomeType</code>을 예상하고<code>OtherType</code>을 찾았습니다&quot;라는 메시지가있는 함수 시그니쳐를 가리키는 오류는
+일반적으로 하나 이상의 리턴 포인트가 잘못 되었음을 나타낸다고 알아차리면 됩니다.</p>
+<p>이 이슈는 현재 이 트랙에서 논의되고 있습니다. <a href="https://github.com/rust-lang/rust/issues/54326">this bug</a>.</p>
+<h1><a class="header" href="#-in-async-블록" id="-in-async-블록"><code>?</code> in <code>async</code> 블록</a></h1>
+<p><code>async fn</code> 에서와 마찬가지로 <code>async</code> 블록 안에서 <code>?</code> 를 사용하는 것이 일반적입니다.
+그러나 <code>async</code> 블록의 반환 타입은 명시 적으로 언급되지 않았습니다.
+이로 인해 컴파일러가 <code>async</code> 블록의 오류 타입을 유추하지 못할 수 있습니다.</p>
+<p>예를 들자면 다음의 코드 입니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct MyError;
+</span><span class="boring">async fn foo() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
+</span><span class="boring">async fn bar() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
+</span>let fut = async {
+    foo().await?;
+    bar().await?;
+    Ok(())
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>위 코드는 다음의 오류를 만들어 냅니다 :</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>error[E0282]: type annotations needed
+ --&gt; src/main.rs:5:9
+  |
+4 |     let fut = async {
+  |         --- consider giving `fut` a type
+5 |         foo().await?;
+  |         ^^^^^^^^^^^^ cannot infer type
+<span class="boring">}
+</span></code></pre></pre>
+<p>불행히도, 현재는 &quot;타입을 <code>fut</code>에 부여&quot; 하는 방법이 없습니다.
+또한 <code>async</code> 블록의 반환 타입을 명시적으로 지정할 방법도 없습니다.
+이 문제를 해결 하려면 &quot;turbofish&quot; 연산자를 사용하여 <code>async</code> 블록의 성공 및
+오류 타입을 제공하여야 합니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">struct MyError;
+</span><span class="boring">async fn foo() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
+</span><span class="boring">async fn bar() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
+</span>let fut = async {
+    foo().await?;
+    bar().await?;
+    Ok::&lt;(), MyError&gt;(()) // &lt;- 여기에 명시적인 타입을 준 것을 눈여겨 보세요.
+};
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#send-추정" id="send-추정"><code>Send</code> 추정</a></h1>
+<p>일부 <code>async fn</code> 상태 시스템은 스레드를 통해 전송되는 것이 안전하지만
+다른 것들은 그렇지 않습니다. <code>async fn</code> <code>Future</code> 가 <code>Send</code> 인지 여부가 결정되는 것은
+non-<code>Send</code> 타입이 <code>.await</code> 지점에서 유지되는지 여부에 의합니다. 컴파일러는
+객체가 <code>.await</code>에 걸쳐있을 때 <code>Send</code>에 근사하기 위해 최선을 다합니다.
+그러나 이 분석은 오늘날 여러 곳에서 너무 보수적입니다.</p>
+<p>예를 들어, 단순한 non-<code>Send</code>타입, 아마도 <code>Rc</code>가 들어 있는 타입을 생각해 보세요 :</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+
+#[derive(Default)]
+struct NotSend(Rc&lt;()&gt;);
+<span class="boring">}
+</span></code></pre></pre>
+<p><code>NotSend</code> 타입의 변수는 <code>async fn</code> 들에서 <code>async fn</code>에 의해 리턴 된 결과 <code>Future</code>타입 값이
+<code>Send</code> 여야 하는 경우에도 일시적으로 나타날 수 있습니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use std::rc::Rc;
+</span><span class="boring">#[derive(Default)]
+</span><span class="boring">struct NotSend(Rc&lt;()&gt;);
+</span>async fn bar() {}
+async fn foo() {
+    NotSend::default();
+    bar().await;
+}
+
+fn require_send(_: impl Send) {}
+
+fn main() {
+    require_send(foo());
+}
+</code></pre></pre>
+<p>하지만 만약 우리가 <code>foo</code>가 <code>NotSend</code>를 변수에 담도록 수정하면 이 예제는 더 이상 컴파일 되지 않습니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use std::rc::Rc;
+</span><span class="boring">#[derive(Default)]
+</span><span class="boring">struct NotSend(Rc&lt;()&gt;);
+</span><span class="boring">async fn bar() {}
+</span>async fn foo() {
+    let x = NotSend::default();
+    bar().await;
+}
+<span class="boring">fn require_send(_: impl Send) {}
+</span><span class="boring">fn main() {
+</span><span class="boring">   require_send(foo());
+</span><span class="boring">}
+</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>error[E0277]: `std::rc::Rc&lt;()&gt;` cannot be sent between threads safely
+  --&gt; src/main.rs:15:5
+   |
+15 |     require_send(foo());
+   |     ^^^^^^^^^^^^ `std::rc::Rc&lt;()&gt;` cannot be sent between threads safely
+   |
+   = help: within `impl std::future::Future`, the trait `std::marker::Send` is not implemented for `std::rc::Rc&lt;()&gt;`
+   = note: required because it appears within the type `NotSend`
+   = note: required because it appears within the type `{NotSend, impl std::future::Future, ()}`
+   = note: required because it appears within the type `[static generator@src/main.rs:7:16: 10:2 {NotSend, impl std::future::Future, ()}]`
+   = note: required because it appears within the type `std::future::GenFuture&lt;[static generator@src/main.rs:7:16: 10:2 {NotSend, impl std::future::Future, ()}]&gt;`
+   = note: required because it appears within the type `impl std::future::Future`
+   = note: required because it appears within the type `impl std::future::Future`
+note: required by `require_send`
+  --&gt; src/main.rs:12:1
+   |
+12 | fn require_send(_: impl Send) {}
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0277`.
+<span class="boring">}
+</span></code></pre></pre>
+<p>이 오류는 정확 합니다. <code>x</code>를 변수에 저장하면 <code>.await</code> 이후까지 삭제되지 않습니다.
+그 시점에서 <code>async fn</code>은
+다른 스레드에서 실행될 수 있습니다. <code>Rc</code>는 <code>Send</code>가 아니기 때문에 스레드를 가로 질러 이동하면
+매우 안 좋은 것이죠. 이것에 대한 간단한 해결책은 <code>.await</code> 이전에 <code>Rc</code>를 <code>drop</code> 하는 것입니다.
+하지만 불행히도 이 방법은 오늘날에는 작동하지 않습니다.</p>
+<p>이 문제를 성공적으로 해결하려면 non-<code>Send</code>의 변수를 캡슐화하는 블록 스코프를 도입해야 할 수도 있습니다.
+이것은 컴파일러에게는 이러한 변수가 <code>.await</code> 지점을 가로질러 살아 있지 않다고 말해주므로 더 쉬워집니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">use std::rc::Rc;
+</span><span class="boring">#[derive(Default)]
+</span><span class="boring">struct NotSend(Rc&lt;()&gt;);
+</span><span class="boring">async fn bar() {}
+</span>async fn foo() {
+    {
+        let x = NotSend::default();
+    }
+    bar().await;
+}
+<span class="boring">fn require_send(_: impl Send) {}
+</span><span class="boring">fn main() {
+</span><span class="boring">   require_send(foo());
+</span><span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#재귀" id="재귀">재귀</a></h1>
+<p>내부적으로 <code>async fn</code>은 <code>.await</code>하고 있는 sub-<code>Future</code>들 각각을 포함하는 상태 머신 타입을 만듭니다.
+이것은 재귀적인 <code>async fn</code>을 조금 tricky하게 만드는데,
+그 이유는 결과 상태 머신 타입은 자신를 포함해야하기 때문입니다.</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">async fn step_one() { /* ... */ }
+</span><span class="boring">async fn step_two() { /* ... */ }
+</span><span class="boring">struct StepOne;
+</span><span class="boring">struct StepTwo;
+</span>// This function:
+async fn foo() {
+    step_one().await;
+    step_two().await;
+}
+// generates a type like this:
+enum Foo {
+    First(StepOne),
+    Second(StepTwo),
+}
+
+// So this function:
+async fn recursive() {
+    recursive().await;
+    recursive().await;
+}
+
+// generates a type like this:
+enum Recursive {
+    First(Recursive),
+    Second(Recursive),
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>이것은 정상적으로 동작하지 않을 것입니다 - 우리는 무한한 크기의 타입을 만들었습니다!
+컴파일러는 다음의 불평을 할 것입니다.</p>
+<pre><code>error[E0733]: recursion in an `async fn` requires boxing
+ --&gt; src/lib.rs:1:22
+  |
+1 | async fn recursive() {
+  |                      ^ an `async fn` cannot invoke itself directly
+  |
+  = note: a recursive `async fn` must be rewritten to return a boxed future.
+</code></pre>
+<p>이것을 허용하기 위해서는, <code>Box</code>를 사용하여 우회해야 합니다.
+불행히도, 컴파일러의 제한은 단순히 <code>recursive()</code> 에 대한 호출을 <code>Box::pin</code>으로 둘러 싼다고 해결되지 않을 것이라는 의미입니다.
+이것을 해결하려면 우리는 <code>.boxed()</code> <code>async</code> 블록을 반환하는 non-<code>async</code> 함수에 재귀를 하도록 해야 합니다 :</p>
+<pre><pre class="playground"><code class="language-rust edition2018">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use futures::future::{BoxFuture, FutureExt};
+
+fn recursive() -&gt; BoxFuture&lt;'static, ()&gt; {
+    async move {
+        recursive().await;
+        recursive().await;
+    }.boxed()
+}
+<span class="boring">}
+</span></code></pre></pre>
+<h1><a class="header" href="#async-in-traits" id="async-in-traits"><code>async</code> in Traits</a></h1>
+<p>현재는, <code>async fn</code>은 트레잇에서 사용될 수 없습니다. 그 이유는 상당히 복잡한데, 앞으로 이러한 제약을
+제거할 계획이 있습니다.</p>
+<p>그 동안은, 그럼에도 불구하고, 이 크레이트는 잘 동작하고 이 문제를 해결할 것입니다.
+<a href="https://github.com/dtolnay/async-trait"><code>async_trait</code> crate from crates.io</a>.</p>
+<p>이러한 trait 메소드를 사용하면 함수 호출 당 하나씩 힙 할당이 발생합니다.
+이것은 대다수의 응용프로그램에게 큰 비용이 아닙니다.
+하지만 초당 수백만 번 호출되는 저수준 함수의 공개 API에서 이 기능 사용 여부를 결정할 때 신중히 이 사항을
+고려해야합니다.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
