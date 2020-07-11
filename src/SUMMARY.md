@@ -24,7 +24,7 @@
   - [타입 에러의 반환](07_workarounds/02_return_type.md)
   - [`?` in `async` 블록](07_workarounds/03_err_in_async_blocks.md)
   - [`Send` 추정](07_workarounds/04_send_approximation.md)
-  - [Recursion](07_workarounds/05_recursion.md)
+  - [재귀](07_workarounds/05_recursion.md)
   - [`async` in Traits](07_workarounds/06_async_in_traits.md)
 - [TODO: I/O](404.md)
   - [TODO: `AsyncRead` and `AsyncWrite`](404.md)
