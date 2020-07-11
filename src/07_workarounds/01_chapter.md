@@ -1,6 +1,5 @@
-# Workarounds to Know and Love
+# 알고 사랑해야 할 방법들
 
-Rust's `async` support is still fairly new, and there are a handful of
-highly-requested features still under active development, as well
-as some subpar diagnostics. This chapter will discuss some common pain
-points and explain how to work around them.
+Rust의 `비동기` 지원은 여전히 새로운 기술이며, 일부 하위 진단 기능과 함께 여전히 활발히 개발중인
+많은 기능이 요청되고 있스빈다. 이 장에서는 몇 가지 일반적인 고통을 주는 포인트에 대해 논의하며
+그 문제를 해결하는 방법을 설명할 것입니다.
