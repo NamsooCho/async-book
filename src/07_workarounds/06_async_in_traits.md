@@ -1,14 +1,12 @@
 # `async` in Traits
 
-Currently, `async fn` cannot be used in traits. The reasons for this are
-somewhat complex, but there are plans to remove this restriction in the
-future.
+현재는, `async fn`은 트레잇에서 사용될 수 없습니다. 그 이유는 상당히 복잡한데, 앞으로 이러한 제약을
+제거할 계획이 있습니다.
 
-In the meantime, however, this can be worked around using the
+그 동안은, 그럼에도 불구하고, 이 크레이트는 잘 동작하고 이 문제를 해결할 것입니다.
 [`async_trait` crate from crates.io](https://github.com/dtolnay/async-trait).
 
-Note that using these trait methods will result in a heap allocation
-per-function-call. This is not a significant cost for the vast majority
-of applications, but should be considered when deciding whether to use
-this functionality in the public API of a low-level function that is expected
-to be called millions of times a second.
+이러한 trait 메소드를 사용하면 함수 호출 당 하나씩 힙 할당이 발생합니다.
+이것은 대다수의 응용프로그램에게 큰 비용이 아닙니다.
+하지만 초당 수백만 번 호출되는 저수준 함수의 공개 API에서 이 기능 사용 여부를 결정할 때 신중히 이 사항을
+고려해야합니다.
